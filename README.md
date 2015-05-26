@@ -5,6 +5,7 @@ Mapas mentales de herramientas relacionadas a Data Science y su entorno
 -----------------------------------------------------------------------
 Este repositorio contiene varios directorios:
 - dataScience
+  - dataScience
   - analytics
   - bigData
 - fid (formatos de intercambio de datos)
