@@ -1,3 +1,8 @@
+/*
+	*** Codigo de referencia, NO Validado ***
+	Ejemplo de escritura y lectura de un registro
+*/
+
 /* Paquete para que pueda ser reutilizado */
 package helloToNOSQLOrcl;
 
