@@ -77,7 +77,38 @@ qplot(height, earn, data = wages, color = sex, alpha = I(1/4)) + geom_smooth(met
 
 d1 <- lm(formula = price ~ cut, data = diamonds)
 coef(d1)
-
+coef(d3)
 d2 <- lm(formula = price ~ cut + carat, data = diamonds)
 coef(d2)
 qplot(carat, predict(d2), data = diamonds, color = cut, geom = "line")
+
+d3 <- lm(formula = earn ~ height + sex + race + ed + age, data = wages)
+coef(d3)
+qplot(earn, predict(d3), data = wages, color = sex, alpha = I(1/4)) + geom_smooth(se = F, method = lm)
+
+d3 <- lm(formula = earn ~ ., data = wages)
+coef(d3)
+
+d4 <- lm(formula = earn ~ . - age, data = wages)
+coef(d4)
+qplot(earn, predict(d4), data = wages, color = sex, alpha = I(1/4)) + geom_smooth(se = F, method = lm)
+
+d5 <- lm(formula = earn ~ height + sex + height:sex, data = wages)
+d5 <- lm(formula = earn ~ height * sex, data = wages)
+coef(d5)
+qplot(earn, predict(d5), data = wages, color = sex, alpha = I(1/4)) + geom_smooth(se = F, method = lm)
+
+# Verificar la correlación entre 2 variables, valores absolutos cercanos a 1 indican alta correlación
+cor(wages$height, wages$ed)
+
+# Multiple testing bias
+# Verifica si un coeficiente es estadísticamente significante, si el coeficiente == 0
+# significa que las variable no tienen relación, esto se mide mediante el p-value
+# A más variables las relaciones que se encuentren serán más débiles por lo tanto los p-values
+# serán mayores
+# Para validar el modelo es bueno chequear el p-value del modelo lo que nos indica si el modelo
+# predice mejor que la aleatoriedad (p-value < 0.05)
+# Otra alternativa es usar el test ANOVA con varios modelos, lo que nos mostrará la mejora de un
+# modelo vs otro
+anova(d3, d5, d4)
+anova(d5)
