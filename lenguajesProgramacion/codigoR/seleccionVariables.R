@@ -28,4 +28,30 @@ coef(subs, 3) # Vemos los coeficientes del tercer modelo
 regsubsets(crime ~ ., data = cts) # No es práctico para grandes data frames
 
 
-# Regresión penalizada (LASSO)
+# Forward y Backward
+start.mod <- lm(earn ~ height, data = wages) # Definimos un modelo inicial
+empty.mod <- lm(earn ~ 1, data = wages) # Definimos un modelo vacío
+full.mod <- lm(earn ~ ., data = wages) # Definimos un modelo completo
+
+step(start.mod, scope = list(upper = full.mod, lower = empty.mod), direction = "forward")
+
+# Usando cts2
+library(dplyr)
+cts2 <- select(cts, -state, -county)
+head(cts2)
+start.cts2 <- lm(crime ~ pop, data = cts2)
+empty.cts2 <- lm(crime ~ 1, data = cts2)
+full.cts2 <- lm(crime ~ ., data = cts2)
+step(start.cts2, scope = list(upper=full.cts2, lower=empty.cts2), direction = "forward")
+step(start.cts2, scope = list(upper=full.cts2, lower=empty.cts2), direction = "backward")
+step(start.cts2, scope = list(upper=full.cts2, lower=empty.cts2), direction = "both")
+
+cts3 <- cts2[2:110,]
+start <- full <- lm(crime ~ pop, data = cts3)
+full <- lm(crime ~ ., data = cts3)
+empty <- lm(crime ~ 1, data = cts3)
+bounds <- list(upper = full, lower = empty)
+
+step(start, scope = bounds, direction = "forward")
+step(start, scope = bounds, direction = "backward")
+step(start, scope = bounds, direction = "both")
