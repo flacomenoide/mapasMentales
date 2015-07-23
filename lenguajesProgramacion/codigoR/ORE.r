@@ -38,3 +38,10 @@ ore.drop(table = "TABLA2")
 ore.create(df1, table = "TABLA1")
 ore.create(df2, table = "TABLA2")
 merge(TABLA1, TABLA2, by.x = "x1", by.y = "x2") # Usamso merge con objetos ore.frame
+
+# Crear un data frame temporal
+DAT1 <- ore.push(dfx) # Crea el ore.frame DAT1 a partir del data frame dfx
+ore.lm.mod <- ore.lm(variableApredecir ~ ., DAT1)
+lm.mod <- lm(mpg ~ cyl + disp + hp + wt + gear, mtcars)
+ore.save(ore.lm.mod, lm.mod, name = "dataStore0", overwrite = TRUE) # Almacena los objetos en la BD en el datastore0
+ore.datastoreSummary("dataStore0")
