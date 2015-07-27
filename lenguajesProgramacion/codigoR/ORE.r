@@ -45,3 +45,14 @@ ore.lm.mod <- ore.lm(variableApredecir ~ ., DAT1)
 lm.mod <- lm(mpg ~ cyl + disp + hp + wt + gear, mtcars)
 ore.save(ore.lm.mod, lm.mod, name = "dataStore0", overwrite = TRUE) # Almacena los objetos en la BD en el datastore0
 ore.datastoreSummary("dataStore0")
+
+# Usando la capa de transparencia
+res <- ore.doEval(function(num = 10, escala = 100) {
+				ID <- seq(num)
+				data.frame(ID = ID, RES = ID/escala)
+				})
+class(res)
+res
+local_res <- ore.pull(res)
+class(local_res)
+local_res
