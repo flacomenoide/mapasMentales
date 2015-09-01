@@ -1,7 +1,7 @@
 # Usando ORE (Oracle R Enterprise)
 library(ORE)
 
-if (!is.ore.connected()) # Verifica que no exista una conección ORE abierta
+if (!ore.is.connected()) # Verifica que no exista una conección ORE abierta
 	ore.connect("ruser", "orcl", "host", "password", all = TRUE) # Crea una conexión a la DB con SID orcl
 	# El argumento all hace que se cargue la metadata de todas las tablas del esquema en objetos ore.frame
 ore.ls() # Lista las tablas y vistas disponibles
