@@ -1,0 +1,62 @@
+Data Science - preguntas a tener en cuenta:
+==========================================
+1 - Are you data-driven or data-informed?
+
+The main difference between these is the state of mind of the analyst when dealing with the data. A data-informed professional is aware of all the risks behind defining indicators, indexes and the different ways of interpreting the same information. Data-driven professionals fail to see all the nuances behind graphs and Excel sheets.
+
+2 - What audiences have you had to engage with your data?
+
+Extracting data is one thing, but effectively communicating data insights to a non-technical audience — and making those insights valuable to them — is an additional skill set. You want to make sure that your data scientist hasn't only talked data with other analysts, and that he or she can pivot appropriately to make data interesting to your audience.
+
+3 - What can data NOT do?
+
+Rather than letting the candidate tout the omniscience of data, see if they can articulate its limitations. This gives the interviewee a chance to envision themselves in the context of a larger company and provides an interesting approach from which to discuss their work experience.
+
+4 - Can you program?
+
+Data science candidates should be great programmers as well. They should have their Java, R and SQL basics clear so that they can independently run queries and write algorithms and don't have to depend on a software developer for every need.
+
+5 - What data do you have on this job?
+
+What data points led you to believe this job would be a good fit? Did they model out the company’s behaviors, culture or attitude? Do they really feel they are an ideal fit — or are they just submitting resumes? I think the answers to this would be really interesting.
+
+6 - How would you explain experimental design in relation to randomization?
+
+Randomization reduces bias by balancing other factors that have not been clearly accounted for in the experimental design. A good data scientist should be able to explain this to a software engineer.
+
+7 - Which data science competitions have you been involved with on Kaggle?
+
+The most passionate data scientists enjoy using Kaggle.com or at least spending time thinking about the competitions and challenges on the site. By asking this question, you will be able to see if they love doing data science work and if they stay updated on the newest findings.
+
+8 - What process do you use to understand a new data set?
+
+A great way to learn more about a data scientist applicant's qualifications is to ask them to describe their process of understanding a data set they are unfamiliar with. By having them elaborate on their process, you learn many things at once as well as open the door for further specific questions. This is a great way to start a conversation about the individual's unique experience, his or her personal methods and tools of preference, how they validate initial assumptions and more.
+
+9 - What's the best story you've told with data?
+
+All data scientists worth their weight can handle the CS/math/science part, but successful data scientists can do three other things very well: effectively map their solutions to the business (not just the theoretical problem), understand the tradeoffs between accuracy and understanding, and most importantly: tell stories. Unless your business is very far along in data-driven decision making, the ability to tell a story is paramount to getting buy-in internally and externally, especially from established players who aren't used to the concept of "data over gut-instinct or HiPPO." A great storyteller can have huge effect on your business strategy and outcomes.
+
+10 - How do you think past employers have seen you as an employee?
+
+Data scientists should constantly be asking questions of themselves and of their processes. With this question, the applicant must analyze what peers or past employers have thought of their work, in turn making them analyze themselves as a data scientist. It then will push them to a solution for the future, and to look for results that may not have been considered before. This question tests how their brain thinks and works outside of the data analysis environment, and also gives insight on their ability to question, analyze and solve.
+
+
+Data Sources
+============
+http://data.un.org/																															UNdata: access to data from the United Nations
+http://pwt.econ.upenn.edu/																													Penn World Table: International Comparisons
+http://data.worldbank.org/data-catalog																										World Bank: includes World Development Indicators, worldwide Governance Indicators
+http://www.imf.org/external/data.htm																										IMF: Statistics from the IMF
+http://www.oecd.org/statsportal/0,3352,en_2825_293564_1_1_1_1_1,00.html																		OECD statistics portal
+http://www.correlatesofwar.org/																												Correlates of War: Includes trade, territorial changes and spatial matrices, system membership, alliance 
+http://www-management.wharton.upenn.edu/henisz/																								Polcon: Political Constraint index, veto players
+http://www.systemicpeace.org/polity/polity4.htm																								Polity IV: Political Regime Characteristics and Transitions
+http://www.unc.edu/~gwmarks/data_ra.php																										Regional Authority Index: authority of regional governments
+http://epp.eurostat.ec.europa.eu/portal/page/portal/information_society/data/comprehensive_databases										Eurostat: Information Society Indicators
+http://gadm.org	GADM: 																														Global Administrative areas. Spatial files for subnational administrative regions
+http://infochimps.org/																														Infochimps: search engine for data sets
+http://datamarket.com/																														Data Market: search engine for data sets
+http://www.factual.com/																														Factual: search engine for data sets
+http://www.isadiscussion.com/view/0/datasets.html																							International Studies Compendium Project list of datasets regarding International topics
+http://www.nsd.uib.no/macrodataguide/set.html?id=6&sub=3																					Comparative Political Data Sets, which aggregates data from several datasets.
+http://econ.worldbank.org/WBSITE/EXTERNAL/EXTDEC/EXTRESEARCH/0,,contentMDK:20649465~pagePK:64214825~piPK:64214943~theSitePK:469382,00.html	Database of Political Institutions, from the World Bank
