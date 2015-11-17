@@ -14,10 +14,12 @@ Este repositorio contiene varios directorios:
   - desarrolloWeb
   - python
   - r
+  - pl/sql
 - NoSQL
 - tools
   - git
   - linux
+  - spark
 
 Para poder ver/usar/editar los mapas mentales es necesario disponer de vym en tu sistema, el cual puede ser descargado de este [link](http://sourceforge.net/projects/vym/).
 
