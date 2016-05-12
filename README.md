@@ -16,6 +16,8 @@ Este repositorio contiene varios directorios:
   - r
   - pl/sql
 - NoSQL
+  - NoSQL
+  - HBase
 - tools
   - git
   - linux
