@@ -8,6 +8,18 @@ import sys
 
 __author__ = 'Miguel Jínez'
 
+def justAlphNumChars(inputLine):
+    r1 = range(ord('a'),ord('z')+1)
+    r2 = range(ord('A'),ord('Z')+1)
+    r3 = range(ord('0'),ord('9')+1)
+    r = r1 + r2 + r3
+    outputLine = ""
+    for x1 in inputLine:
+        if ord(x1) not in r:
+            x1 = " "
+        outputLine += x1
+    return outputLine
+
 def justPrintableChars(inputLine):
     outputLine = ""
     for x1 in inputLine:
@@ -17,10 +29,13 @@ def justPrintableChars(inputLine):
     return outputLine
 
 def __main__():
-    if len(sys.argv) <> 3:
-        print "El script necesita 2 argumentos, archivo de entrada y archivo de salida"
+    if len(sys.argv) <> 4:
+        print "El script necesita 3 argumentos, archivo de entrada, archivo de salida y método a aplicar"
+        print "Métodos a aplicar disponibles:"
+        print "\t0- Deja solo caracteres alpha numéricos (a-z, A-Z, 0-9)"
+        print "\t1- Elimina caracteres no imprimibles"
         print "Ejemplo:"
-        print "limpiaTexto.py archivoInput archivoOutput"
+        print "limpiaTexto.py archivoInput archivoOutput 0"
         sys.exit("Error de sintaxis")
     else:
         print "Bienvenidos"
@@ -29,6 +44,11 @@ def __main__():
         inputFile = inputFile.decode('utf-8')
         outputFile = sys.argv[2]
         outputFile = outputFile.decode('utf-8')
+        depOption = int(sys.argv[3])
+        if depOption == 0:
+            functionExecution = justAlphNumChars
+        elif depOption == 1:
+            functionExecution = justPrintableChars
         print "Script : " + scriptName
         print "Archivo de Entrada : " + inputFile
         archI = open(inputFile, "rb")
@@ -36,7 +56,7 @@ def __main__():
         archO = open(outputFile, "wb")
         print "Se inicia la escritura en el archivo de salida"
         for lin in archI:
-            archO.write(justPrintableChars(lin)+"\n")
+            archO.write(functionExecution(lin)+"\n")
         archI.close()
         archO.close()
 
