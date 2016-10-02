@@ -58,5 +58,15 @@ rm(variable)                        # Borra un objeto del ambiente de trabajo
 rm(list = ls(pattern = "concate"))  # Se puede usar el parámetro list para pasarle una lista de objetos a borrar
 
 # Ejercicios
-thames.length = 346
-severn.length = 354
+thames.longitud = 346           # Distancia en Km
+severn.longitud = 354           # Distancia en Km
+severn.length - thames.length   # El río Severn es 8 Km más largo que el río Thames
+severn.length / thames.length   # El río Severn es 1.023 veces más largo que el río Thames
+
+multiplicar <- function(){
+    print(12.8 * 19.2 * pi)
+}
+
+multiplicar()
+
+rm(list=ls())
