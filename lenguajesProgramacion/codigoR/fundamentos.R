@@ -63,10 +63,10 @@ severn.longitud = 354           # Distancia en Km
 severn.length - thames.length   # El río Severn es 8 Km más largo que el río Thames
 severn.length / thames.length   # El río Severn es 1.023 veces más largo que el río Thames
 
-multiplicar <- function(){
+multiplicar <- function(){      # Creación de una función que multiplica 12.8, 19.2 y el número pi
     print(12.8 * 19.2 * pi)
 }
 
-multiplicar()
+multiplicar()                  # Uso dela función multiplicar
 
-rm(list=ls())
+rm(list=ls())                  # Borrado de todos los objetos de Workspace
