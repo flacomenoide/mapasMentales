@@ -216,3 +216,120 @@ rowSums(ta)         # Suma los valores de las filas del objeto
 # ========== #
 # Ejercicios #
 # ========== #
+mean(airquality$Ozone, na.rm=TRUE)          # Cálculo de la media de la columna Ozono del dataset airquality
+round(mean(airquality$Ozone, na.rm=TRUE),2) # Cálculo de la media de la columna Ozono del dataset airquality redondeado a 2 decimaless
+any(is.na(airquality$Temp))                 # Verificar si existen NA en la columna Temp del dataset airquality
+centigrados <- function(tf){                # Función para convertir grados F a C
+  return (tf-32)*(5/9)
+}
+centigrados(airquality[,4])                 # Probar la función con un array o con un escalar
+range(centigrados(airquality[,4]))          # Encontrar el mínimo y el máximo valor de la temp en C
+# Encontramos el mínimo y el máximo del dataset
+airquality[which(airquality[,4] == max(airquality[,4]) | airquality[,4] == min(airquality[,4])),]
+length(which(airquality[,3] <= 4))          # Cantidad de días con vientos menores o igual a 4mph
+airquality[which(airquality[,2] > 300),]    # Días con radiación superior a 300 Langleys
+median(airquality$Ozone, na.rm = TRUE)      # 2 maneras de encontrar la mediana
+quantile(airquality$Ozone, na.rm = TRUE)[3]
+# Verificar que variable tiene mayor correlación con la presencia de Ozono
+cor.test(airquality$Ozone, airquality$Solar.R)
+cor.test(airquality$Ozone, airquality$Wind)
+cor.test(airquality$Ozone, airquality$Temp) # Mayor correlación
+# Qué método (supp) cuya ingesta de calcio es de 2mg tiene el mayor promedio de la longitud de los dientes de los conejillos de indias
+table(ToothGrowth$supp)
+mean(ToothGrowth[which(ToothGrowth$supp=='OJ' & ToothGrowth$dose == 2.0),1])
+mean(ToothGrowth[which(ToothGrowth$supp=='VC' & ToothGrowth$dose == 2.0),1])
+
+# Condicionales
+# =============
+a <- 10
+b <- 11
+# La sentencia "else" tiene que estar en la misma línea donde termina el if
+if(a<b){print("b es mayor que a")} # Este ejemplo da error
+else {print("a es mayor que b")}
+
+if(a<b){print("b es mayor que a") # Este ejemplo funciona bien
+  } else {print("a es mayor que b")}
+
+ifelse(a<b,"Si","No")             # ifelse permite evaluar una condición y tener una respuesta positiva y una negativa en la misma llamada
+
+# Loops
+for(i in 1:5){                # Iteración restringida con una secuencia
+  print((i+1)*3)
+}
+
+for(i in c("a","m","z")){     # Iteración restringida con un vector
+  print(i)
+}
+
+x <- 0
+while(x<10){                  # Itewración NO restringida
+  print(x)
+  x<-x+1                      # Si comentamos esta línea el ciclo será infinito (ESC para terminar)
+}
+
+# ========== #
+# Ejercicios #
+# ========== #
+x <- 10
+y <- 25
+
+if(x<y){
+  print("La operación es correcta")
+}
+
+ifelse(x<=y, "La operación es correcta", "La operación NO es correcta")
+
+if(x<=y){
+  print("La operación es correcta")
+} else {
+  print("La operación NO es correcta")
+}
+
+z <- 50
+ifelse(x>y, "Verdadero", ifelse(x>z, "Doble Falso", "Un Verdadero, un Falso"))
+
+for(i in 1:20){
+  print(i)
+}
+for(i in 5:10){
+  print((i^2)-i)
+}
+
+letras <- c("P","I","R","A","T","E")
+for(i in letras){
+  print(i)
+}
+
+i <- -10
+while(i >= -20){
+  print(i)
+  i <- i-1
+}
+
+h <- 10
+j <- -5
+if(h<j){
+  print("Sentencia Verdadera")
+} else {
+  for(i in h:j){
+    print(i)
+  }
+}
+
+i=h
+if(h<j){
+  print("Sentencia Verdadera")
+} else {
+  while(i >= j){
+    print(i)
+    i <- i-1
+  }
+}
+
+# Gráficos
+# ========
+
+# ========== #
+# Ejercicios #
+# ========== #
+
