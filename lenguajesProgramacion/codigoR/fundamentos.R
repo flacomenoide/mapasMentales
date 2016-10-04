@@ -186,3 +186,20 @@ head(airquality)              # Dataset con las mediciones de la calidad del air
 mean(airquality[,2])          # Cálculo de la media de los valores de la columna 2 (No se puede realizar por valores NA)
 mean(airquality[,2], na.rm=T) # Cálculo de la media de los valores de la columna 2 excluyendo los valores NA
 any(is.na(airquality))        # Valida si existe algún valor NA en el dataset
+
+aire_compl <- na.omit(airquality)   # Eliminar las filas que contienen valores NA
+any(is.na(aire_compl))              # Validamos si existen valores NA
+
+# Algunas pruebas estadísticas
+t.test(airquality[1:31,1], airquality[124:153,1])   # Prueba t-test (T-students)
+# p-value > 0.05, lo que sostiene la hoipótesis Nula
+head(ToothGrowth,12)                        # Dataset  con información de la longitud de los dientes de conejillos de indias en mm
+cor.test(ToothGrowth[,1], ToothGrowth[,3])  # Se calcula la correlación entre la longitud de los dientes y las dosis de calcio
+summary(airquality$Solar.R)                 # Estadísticos básicos de un dataset
+
+# Funciones Estadísticas
+mean(td$Numero)     # Calculo del promedio
+median(tv)          # Calculo de la mediana
+max(tv)             # Encuentra el valor máximo del objeto
+min(tv)             # Encuentra el valor mínimo del objeto
+
