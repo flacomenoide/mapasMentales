@@ -202,4 +202,17 @@ mean(td$Numero)     # Calculo del promedio
 median(tv)          # Calculo de la mediana
 max(tv)             # Encuentra el valor máximo del objeto
 min(tv)             # Encuentra el valor mínimo del objeto
+range(tv)           # Encuentra el rango de valores del objeto (mínimo, máximo)
+sum(tv)             # Suma los valores del objeto
+var(tv)             # Varianza (Sample Variance)
+quantile(tv)        # Extrae los quantiles 0, 25, 50, 75 y 100 del objeto
+cumsum(tv)          # Suma acumulada de los valores del objeto
+cumprod(tv)         # Producto acumulado de los valores del objeto
+colMeans(ta)        # Calcula la media de cada columna del objeto
+rowMeans(ta)        # Calcula la media de cada fila del objeto
+colSums(ta)         # Suma los valores de las columnas del objeto
+rowSums(ta)         # Suma los valores de las filas del objeto
 
+# ========== #
+# Ejercicios #
+# ========== #
