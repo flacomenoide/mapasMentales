@@ -329,7 +329,74 @@ if(h<j){
 # Gráficos
 # ========
 
+head(VADeaths)        # Dataset de tasa de muertes por grupo etario por miles en Virginia en 1940
+barplot(VADeaths)     # Gráfico de Barras
+boxplot(ToothGrowth$len)                                # Boxplots
+boxplot(len ~ dose, ToothGrowth, subset = supp=="VC")   # eje X Dosis, eje Y Longitud
+hist(islands)         # Histogramas
+pie(15:1, col = rainbow(15))    # Gráficos de Pastel
+pie(15:1, col = "red")
+plot(cars$dist, cars$speed)
+plot(cars)
+
+# Trabajando con scatter plots y gráficos de líneas
+head(trees)
+plot(trees$Girth, trees$Height, type="p")
+plot(trees$Girth, trees$Height, type="l")
+plot(trees$Girth, trees$Height, type="b")
+# Formateo de las etiquetas
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)")
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", xlim = c(8,18), ylim = c(60,90))
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", las=1)
+# Caracteres de Impresión - forma (pch entre 1 y 25)
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", pch="1")
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", pch=1)
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", pch=16)
+# Caracteres de Impresión - tamaño (cex)
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", pch=16, cex=2)
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", pch=16, cex=0.5)
+# Caracteres de Impresión - Color (col)
+colours()
+plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", pch=16, cex=0.5, col="seagreen1")
+# Caracteres de Impresión - Tipo de línea (lty y lwd)
+plot(trees$Girth, trees$Height, type="l", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", col="red", lty=2)
+plot(trees$Girth, trees$Height, type="l", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", col="red", lty=4, lwd=2)
+# Agregando línea de Best Fit
+abline(lm(trees$Height~trees$Girth))
+# Agregando un segundo eje Y
+par(mar=c(5,4,4,4))
+plot(trees$Girth, trees$Height, xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", las=1, pch=16, col="springgreen")
+par(new=T) 
+plot(trees$Girth, trees$Volume, axes = F, xlab="", ylab="", pch=4, col="blue") # Graficamos el nuevo eje
+axis(side=4, las=1)
+mtext(side = 4, line = 2.5, "Volumen")
+# Agregando la leyenda
+legend("topleft", c("Altura (Pies)", "Volumen"), pch = c(16,4), col = c("springgreen", "blue"), bty = "n")
+# Agregando un Título
+title("Título del Gráfico", cex.main=1, font.main=2)
+# Exportar Gráficos
+#savePlot("archivo.jpg", type="jpeg") # Solo windows
+quartz.save("archivo.jpg", type="jpg", dpi=300)
+# Otros Gráficos
+coplot(lat ~ long|depth, data = quakes)
+plot(lat ~ long, data = quakes)
+
 # ========== #
 # Ejercicios #
 # ========== #
+summary(sunspot.year)
+plot(1700:1988, sunspot.year, xlab = "Año", ylab = "Cantidad de Manchas Solares", xlim = c(1700,2000),
+  ylim = c(0,200), las=1, type="l", col="darkorange", lwd=2)
+title("Observaciones de manchas solares entre 1700 y 1988", cex.main=1.2)
 
+par(mar=c(5,4,4,4))
+plot(airquality$Ozone, airquality$Temp, xlab="Concentración de Ozono", ylab="Temperatura F", xlim=c(0,180), ylim = c(50,100), las=1, pch=18, col="red", cex=1.2)
+abline(lm(airquality$Temp ~ airquality$Ozone), col = "red", lty=3, lwd=1.5)
+par(new=TRUE)
+plot(airquality$Ozone, airquality$Wind, axes = F, xlab = "", ylab = "", xlim = c(0,180), ylim = c(0,21), col="slateblue", pch=4, cex=0.75)
+axis(side = 4, las = 1)
+mtext(side = 4, "Velocidad del Viento (mph)")
+abline(lm(airquality$Temp ~ airquality$Wind), col = "slateblue", lty=3, lwd=1.5)
+title("Medidas diarias de la calidad del aire medidas en NY entre Mayo y Sept 1973", cex=0.95)
+legend("bottomleft",c("Temperatura F", "Velocidad del viento (mph"), pch=c(18,4), col=c("red", "slateblue"),  bty="n")
+dev.copy(png, "ny_air_quality.jpg")
