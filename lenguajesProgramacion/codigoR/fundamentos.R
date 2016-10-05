@@ -262,7 +262,7 @@ for(i in c("a","m","z")){     # Iteración restringida con un vector
 }
 
 x <- 0
-while(x<10){                  # Itewración NO restringida
+while(x<10){                  # Iteración NO restringida
   print(x)
   x<-x+1                      # Si comentamos esta línea el ciclo será infinito (ESC para terminar)
 }
@@ -316,10 +316,10 @@ if(h<j){
   }
 }
 
-i=h
 if(h<j){
   print("Sentencia Verdadera")
 } else {
+  i=h
   while(i >= j){
     print(i)
     i <- i-1
@@ -344,7 +344,7 @@ head(trees)
 plot(trees$Girth, trees$Height, type="p")
 plot(trees$Girth, trees$Height, type="l")
 plot(trees$Girth, trees$Height, type="b")
-# Formateo de las etiquetas
+# Formateo de las etiquetas (xlab, ylab)
 plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)")
 plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", xlim = c(8,18), ylim = c(60,90))
 plot(trees$Girth, trees$Height, type="p", xlab="Circunferencia (pulgadas)", ylab="Altura (Pies)", las=1)
@@ -385,7 +385,7 @@ plot(lat ~ long, data = quakes)
 # Ejercicios #
 # ========== #
 summary(sunspot.year)
-plot(1700:1988, sunspot.year, xlab = "Año", ylab = "Cantidad de Manchas Solares", xlim = c(1700,2000),
+plot(1700:1988, sunspot.year, xlab = "Año", ylab = "Cantidad de Manchas Solares por Año", xlim = c(1700,2000),
   ylim = c(0,200), las=1, type="l", col="darkorange", lwd=2)
 title("Observaciones de manchas solares entre 1700 y 1988", cex.main=1.2)
 
