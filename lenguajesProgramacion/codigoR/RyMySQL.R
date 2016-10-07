@@ -8,14 +8,14 @@ library(ggplot2) # Librería útil para graficar
 
 # Creamos la conexión a la Base de Datos
 cat("Por favor ingrese el Password: ");passwd <- scan("", what = " ", nlines = 1)
-conRio <- dbConnect(MySQL(), user = 'dblocal', password = passwd, host = 'localhost', dbname = 'uso_local')
+conM <- dbConnect(MySQL(), user = 'dblocal', password = passwd, host = 'localhost', dbname = 'uso_local')
 
 # Podemos crear un df desde el resultado de un query
 # Partimos de un data frame extraido desde una tabla relacional previamente preparada con los links entre nodos
-transf <- dbGetQuery(conn = conRio, statement = "select * from grafo_ordenado;") # traigo el grafo desde la DB
+transf <- dbGetQuery(conn = conM, statement = "select * from grafo_ordenado;") # traigo el grafo desde la DB
 transf <- transf[,c(1,4,2,3,5,6,7,8,9,10,11,12)] # reordeno las columnas
 
-importes <- dbGetQuery(conn = conRio, statement = "select * from uso_local.importes;") # del grafo extraje los montos de cada conexión
+importes <- dbGetQuery(conn = conM, statement = "select * from uso_local.importes;") # del grafo extraje los montos de cada conexión
 
 names(importes) <- c("nodo", "cuenta", "banco", "importe_in", "importe_out")
 
@@ -61,7 +61,7 @@ df_fin <- left_join(df_fin, df_centrality, by = "nodo")
 df_fin <- left_join(df_fin, df_closeness, by = "nodo")
 df_fin <- left_join(df_fin, df_betweeness, by = "nodo") # Este dataset tiene a cada nodo con sus métricas generales
 
-dbWriteTable(conRio, "metricas", df_fin, overwrite = T, row.names = F) # Escribimos los resultados en la DB
+dbWriteTable(conM, "metricas", df_fin, overwrite = T, row.names = F) # Escribimos los resultados en la DB
 
 # Con estos pasos verificamos las cuentas que generan mayor flujo de salida de dinero
 df_cuentas_out <- df_fin[df_fin$banco == "BANCO SANTANDER RIO S.A.", ]
@@ -70,10 +70,10 @@ head(df_cuentas_out[order(-df_cuentas_out$importe_out),])
 comRes <- tapply(df_fin$degree, df_fin$comunidad, length)
 plot(comRes, ylim = c(0,20))
 
-bancos_out <- dbGetQuery(conn = conRio, statement = "select * from bancos_reciben_trf;") # Bancos que reciben dinero del circuito Santander
-bancos_in <- dbGetQuery(conn = conRio, statement = "select * from bancos_ingresan_trf;") # Bancos que ingresan dinero al circuito Santander
+bancos_out <- dbGetQuery(conn = conM, statement = "select * from bancos_reciben_trf;") # Bancos que reciben dinero del circuito Santander
+bancos_in <- dbGetQuery(conn = conM, statement = "select * from bancos_ingresan_trf;") # Bancos que ingresan dinero al circuito Santander
 
-grafo_bancos <- dbGetQuery(conn = conRio, statement = "select * from grafo_entidades;") # Bancos que ingresan dinero al circuito Santander
+grafo_bancos <- dbGetQuery(conn = conM, statement = "select * from grafo_entidades;") # Bancos que ingresan dinero al circuito Santander
 gb <- graph_from_data_frame(grafo_bancos, directed = TRUE, vertices = NULL) # Creamos un objeto graph dirigido de las entidades
 
 V(gb)$color <- seq(1,62) +1
@@ -86,7 +86,7 @@ subGrafo <- function(nCom = 1) {
   # Trabajo por comunidades
   x <- "select g.* from uso_local.grafo_ordenado g join uso_local.metricas m0 on g.id_cuenta_1 = m0.nodo join uso_local.metricas m1 on g.id_cuenta_2 = m1.nodo where m0.comunidad = m1.comunidad and m0.comunidad = "
   x <- paste0(x, toString(nCom), ";", sep = "")
-  tc <- dbGetQuery(conn = conRio, statement = x)
+  tc <- dbGetQuery(conn = conM, statement = x)
   tc <- tc[,c(1,4,2,3,5,6,7,8,9,10,11,12)] # reordeno las columnas
   gc <- graph_from_data_frame(tc, directed = TRUE, vertices = NULL)
   return(gc)
