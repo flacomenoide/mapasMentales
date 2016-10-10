@@ -33,7 +33,6 @@ fechaDescarga <- date()  # obtenemos la fecha de descarga del archivo
   indiceCol <- 2:3
   indiceFila <- 1:5
   datosCamaraExcel1 <- read.xlsx("./datos/camaras.xlsx", sheetIndex = 1, colIndex = indiceCol, rowIndex = indiceFila)
-  datosCamaraExcel1
   
   # Archivo XML
   # Para leer archivos XML se necesita instalar el paquete XML >> install.packages("XML")
@@ -48,4 +47,19 @@ fechaDescarga <- date()  # obtenemos la fecha de descarga del archivo
   xmlName(nodoRaiz)
   # Obtiene los nombres de los elementos del nodo raíz
   names(nodoRaiz)
+  # Obtiene el primer elemento de la estructura
+  nodoRaiz[[1]]
+  # Acceso directo al primer valor del primer elemento de la estructura
+  nodoRaiz[[1]][[1]]
+  # Extracción de todos los valores del objeto XML
+  xmlSApply(nodoRaiz, xmlValue)
+  # Extracción del valor del atributo "name" de cada elemento del objeto XML
+  xpathSApply(nodoRaiz, "//name", xmlValue)
+  # Extracción del valor del atributo "price" de cada elemento del objeto XML
+  xpathSApply(nodoRaiz, "//price", xmlValue)
+  # Otro ejemplo de extracción de HTML (similar a XML)
+  archXmlURL <- "http://www.espn.com/nfl/team/_/name/bal/baltimore_ravens"
+  doc1 <- htmlTreeParse(archXmlURL, useInternalNodes = T)
+  scores <- xpathSApply(doc1, "//li[@class='record']", xmlValue)
+  teams <- xpathSApply(doc1, "//li[@class='team-name']", xmlValue)
   
