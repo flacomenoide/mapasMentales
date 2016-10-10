@@ -64,16 +64,16 @@ df_fin <- left_join(df_fin, df_betweeness, by = "nodo") # Este dataset tiene a c
 dbWriteTable(conM, "metricas", df_fin, overwrite = T, row.names = F) # Escribimos los resultados en la DB
 
 # Con estos pasos verificamos las cuentas que generan mayor flujo de salida de dinero
-df_cuentas_out <- df_fin[df_fin$banco == "BANCO SANTANDER RIO S.A.", ]
+df_cuentas_out <- df_fin[df_fin$banco == "BANCO ORIGEN", ]
 head(df_cuentas_out[order(-df_cuentas_out$importe_out),])
 
 comRes <- tapply(df_fin$degree, df_fin$comunidad, length)
 plot(comRes, ylim = c(0,20))
 
-bancos_out <- dbGetQuery(conn = conM, statement = "select * from bancos_reciben_trf;") # Bancos que reciben dinero del circuito Santander
-bancos_in <- dbGetQuery(conn = conM, statement = "select * from bancos_ingresan_trf;") # Bancos que ingresan dinero al circuito Santander
+bancos_out <- dbGetQuery(conn = conM, statement = "select * from bancos_reciben_trf;") # Bancos que reciben dinero del circuito
+bancos_in <- dbGetQuery(conn = conM, statement = "select * from bancos_ingresan_trf;") # Bancos que ingresan dinero al circuito
 
-grafo_bancos <- dbGetQuery(conn = conM, statement = "select * from grafo_entidades;") # Bancos que ingresan dinero al circuito Santander
+grafo_bancos <- dbGetQuery(conn = conM, statement = "select * from grafo_entidades;") # Bancos que ingresan dinero al circuito
 gb <- graph_from_data_frame(grafo_bancos, directed = TRUE, vertices = NULL) # Creamos un objeto graph dirigido de las entidades
 
 V(gb)$color <- seq(1,62) +1
