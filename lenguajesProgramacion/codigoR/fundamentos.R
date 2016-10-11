@@ -220,7 +220,7 @@ mean(airquality$Ozone, na.rm=TRUE)          # Cálculo de la media de la columna
 round(mean(airquality$Ozone, na.rm=TRUE),2) # Cálculo de la media de la columna Ozono del dataset airquality redondeado a 2 decimaless
 any(is.na(airquality$Temp))                 # Verificar si existen NA en la columna Temp del dataset airquality
 centigrados <- function(tf){                # Función para convertir grados F a C
-  return (tf-32)*(5/9)
+  return ((tf-32)*(5/9))
 }
 centigrados(airquality[,4])                 # Probar la función con un array o con un escalar
 range(centigrados(airquality[,4]))          # Encontrar el mínimo y el máximo valor de la temp en C
