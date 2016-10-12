@@ -115,3 +115,6 @@ dt1 <- data.table(x=rep(c("a","b","c"),each=100),y=rnorm(300))
 setkey(dt1,x)
 # Filtrando un data table por la clave
 dt1['a']
+
+# Conectarse a MySQL | mariadb
+library(RMySQL)
