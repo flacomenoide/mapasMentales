@@ -117,4 +117,59 @@ setkey(dt1,x)
 dt1['a']
 
 # Conectarse a MySQL | mariadb
-library(RMySQL)
+library(RMySQL)     # Cargamos la librería RMySQL
+# Se establece una conexión con un servidor
+conexion <- dbConnect(MySQL(),user="genome", host="genome-mysql.cse.ucsc.edu")
+# Ejecuta una sentencia y almacena su resultado en una variable
+result <- dbGetQuery(conexion, "show databases;")
+# Desconexión de la Base
+dbDisconnect(conexion)
+
+# Conexión a una base en particular
+conexion <- dbConnect(MySQL(),user="genome", db="hg19", host="genome-mysql.cse.ucsc.edu")
+# Obtener el listado de las tablas de la base de datos
+tablas <- dbListTables(conexion)
+length(tablas)
+# Obtener los campos de una tabla
+dbListFields(conexion, "affyU133Plus2")
+# Obtener los resultados de un query
+dbGetQuery(conexion, "SELECT COUNT(*) FROM affyU133Plus2")
+# Leer datos de una tabla en un data frame
+datos <- dbReadTable(conexion, "affyU133Plus2")
+head(datos)
+# Ejecuta un query en la Base de Datos, solo permite sentencias SELECT
+query <- dbSendQuery(conexion, "SELECT * FROM affyU133Plus2 WHERE misMatches between 1 and 3")
+datosMisMatches <- fetch(query)
+quantile(datosMisMatches$misMatches)
+datosMisMatches10 <- fetch(query, n=10)
+# Libera los recursos locales y remotos relacionados con el result set
+dbClearResult(query)
+dim(datosMisMatches10)
+dbDisconnect(conexion)
+
+# Fuentes de Datos HDF5
+# Se necesita instalar el paquete hdf5
+  # Definimos el origen como BioConductor
+  source("http://bioconductor.org/biocLite.R")
+  biocLite("rhdf5")
+
+library(rhdf5)
+# Creación de un archivo hdf5
+archH5 <- h5createFile("./datos/ejemplo.h5")
+# Creación de Grupos
+h5createGroup("./datos/ejemplo.h5", "foo")
+h5createGroup("./datos/ejemplo.h5", "baa")
+h5createGroup("./datos/ejemplo.h5", "foo/foobaa")
+# Listado del contenido del archivo hdf5
+h5ls("./datos/ejemplo.h5")
+# Escritura en los grupos
+A <- matrix(1:10,nr=5, nc=2)
+# Escritura de contenido dentro de un grupo específico
+h5write(A, "./datos/ejemplo.h5", "foo/A")
+
+b <- array(seq(0.1,2.0, by=0.1), dim=c(5,2,2))
+attr(b, "scale") <- "liter"
+h5write(A, "./datos/ejemplo.h5", "foo/foobaa/b")
+
+# Lectura de un archivo hdf5
+la <- h5read("./datos/ejemplo.h5", "/foo")
