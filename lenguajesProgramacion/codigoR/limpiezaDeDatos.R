@@ -214,3 +214,5 @@ goog <- handle("http://google.com")
 # Se obtienen múltiples páginas del dominio google.com manteniendo el handle
 pg1 <- GET(handle = goog, path="/")
 pg2 <- GET(handle = goog, path="search")
+sign_oauth1.0()
+sign_oauth2.0()
