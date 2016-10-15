@@ -1,4 +1,4 @@
-# data cleaning
+# Data Cleaning
 # Configuro el directorio de trabajo
 setwd("./mapasMentales/lenguajesProgramacion/codigoR/")
 
@@ -152,7 +152,6 @@ dbDisconnect(conexion)
   # Definimos el origen como BioConductor
   source("http://bioconductor.org/biocLite.R")
   biocLite("rhdf5")
-
 library(rhdf5)
 # Creación de un archivo hdf5
 archH5 <- h5createFile("./datos/ejemplo.h5")
@@ -163,13 +162,55 @@ h5createGroup("./datos/ejemplo.h5", "foo/foobaa")
 # Listado del contenido del archivo hdf5
 h5ls("./datos/ejemplo.h5")
 # Escritura en los grupos
-A <- matrix(1:10,nr=5, nc=2)
+a <- matrix(1:10,nr=5, nc=2)
 # Escritura de contenido dentro de un grupo específico
-h5write(A, "./datos/ejemplo.h5", "foo/A")
-
+h5write(a, "./datos/ejemplo.h5", "foo/A")
 b <- array(seq(0.1,2.0, by=0.1), dim=c(5,2,2))
 attr(b, "scale") <- "liter"
-h5write(A, "./datos/ejemplo.h5", "foo/foobaa/b")
-
+h5write(b, "./datos/ejemplo.h5", "foo/foobaa/b")
+# Escritura por bloques
+h5write(c(11,12,13), "./datos/ejemplo.h5", "foo/A", index=list(1:3,1))
 # Lectura de un archivo hdf5
 la <- h5read("./datos/ejemplo.h5", "/foo")
+h5read("./datos/ejemplo.h5", "/foo/A")
+h5ls("./datos/ejemplo.h5")
+# Cierra todos los archivos HDF5 abiertos
+H5close()
+
+# Lectura de datos desde páginas web
+# Crea la conexión con una página web
+conexionW <- url("http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=es")
+# Obtiene el contenido de la página web
+codHtml <- readLines(conexionW)
+# Cierra la conexión
+close(conexionW)
+codHtml
+# Parseando la página con XML
+library(XML)
+# Asignamos la URL a una variable
+url <- "http://scholar.google.com/citations?user=HI-I6C0AAAAJ&hl=es"
+codHtml1 <- htmlTreeParse(url, useInternalNodes = T)
+# Se extrae el Título
+xpathSApply(codHtml1, "//title", xmlValue)
+# Se extrae la columna "citado por"
+xpathSApply(codHtml1, "//td[@class='gsc_a_c']", xmlValue)
+# Uso de la librería httr
+library(httr)
+# Obtiene la URL y la asigna a una variable
+codHtml2 <- GET(url)
+# Obtiene el contenido de la paǵina
+contenido <- content(codHtml2, as="text")
+# Parsea el contenido
+contenidoOrdenado <- htmlParse(contenido, asText = T)
+# Extráe el título
+xpathSApply(contenidoOrdenado, "//title", xmlValue)
+
+# Uso de Get en páginas con password
+pg1 <- GET("http://httpbin.org/basic-auth/user/passwd") # La respuesta es vacía
+pg2 <- GET("http://httpbin.org/basic-auth/user/passwd", authenticate("user", "passwd"))
+names(pg2)
+# Se define un handle para google.com
+goog <- handle("http://google.com")
+# Se obtienen múltiples páginas del dominio google.com manteniendo el handle
+pg1 <- GET(handle = goog, path="/")
+pg2 <- GET(handle = goog, path="search")
