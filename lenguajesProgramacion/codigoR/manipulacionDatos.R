@@ -1,6 +1,6 @@
 # Manipulación de Datos
 # =====================
-setwd("./mapasMentales/lenguajesProgramacion/codigoR/")
+setwd("./colabs/mapasMentales/lenguajesProgramacion/codigoR/")
 td <- data.frame(c(1,2,3), c("a","b","c"), c(T,F,F))
 names(td) <- c("Numero", "Letra", "Logico")
 # Generación de Secuencias
@@ -14,6 +14,7 @@ seq(from=2, to=12, along=tv)  # Creación de una secuencia del 2 al 12 con longi
 
 # Subscripting o Subsetting
 # Subscripting Vectores
+tv <- c(1:10)
 tv[5]         # Se extrae el elemento 5 del vector tv
 tv[-5]        # Se extrae todos los elemento del vector tv excepto el elemento 5
 tv[c(1,4)]    # Se extraen los elementos 1 y 4 del vector tv pasándo como índice un vector
