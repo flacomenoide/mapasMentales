@@ -71,20 +71,33 @@ biciData <- read.csv("./datos/bicicleterias.csv", header = T, sep = ";")
 # Generación de una tabla que relaciona 2 variables de un data frame
 table(biciData$BARRIO, biciData$MECANICA_S)
 # Generación de una tabla que busca valores en una columna
-table(biciData$BARRIO %in% c("CABALLITO", "PALERMO"))
-table(biciData$BARRIO %in% c("CABALLITO"))
+table(biciData$BARRIO %in% c("NUÑEZ", "PALERMO"))
+table(biciData$BARRIO %in% c("NUÑEZ"))
+# Creación de una nueva columna en base a una tercera
+biciData$CERCANO <- biciData$BARRIO %in% c("NUÑEZ", "PALERMO")
+table(biciData$CERCANO)
+# Creación de Variables categóricas a partir de variables continuas
+biciData$GRUPOS_ALTURA <- cut(biciData$ALTURA, breaks = quantile(biciData$ALTURA))
+table(biciData$GRUPOS_ALTURA)
 #
 data("UCBAdmissions")
 DF <- as.data.frame(UCBAdmissions)
-# Creamos una tabla con la relación entre 3 variables
+# Creación de una tabla con la relación entre 3 variables
 xt <- xtabs(Freq ~ Gender + Admit, data = DF)
-# Creamos una tabla plana a partir de la relación encontrada previamente
+# Creación de una tabla plana a partir de la relación encontrada previamente
 ftable(xt)
 # Chequear el espacio que usa un objeto
 object.size(DF)
+
+# Manipulación de datos con Hmisc
+library(Hmisc)
+# Creación de una variable categórica a partir de una variable continua
+biciData$GRUPOS_ALTURA2 <- cut2(biciData$ALTURA, g = 4)
 
 # Manipulación de Datos con plyr >> install.packages("plyr")
 library(plyr)
 # Ordenamiento de un data frame por una variable
 arrange(td,td$Logico)         # Ascendente
 arrange(td,desc(td$Logico))   # Descendiente
+# Creación de una variable categórica a partir de una variable continua con mutate
+biciData <- mutate(biciData,GRUPOS_ALTURA3=cut2(biciData$ALTURA, g=4))
