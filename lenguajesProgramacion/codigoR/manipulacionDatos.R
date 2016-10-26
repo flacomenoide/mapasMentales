@@ -101,3 +101,23 @@ arrange(td,td$Logico)         # Ascendente
 arrange(td,desc(td$Logico))   # Descendiente
 # Creación de una variable categórica a partir de una variable continua con mutate
 biciData <- mutate(biciData,GRUPOS_ALTURA3=cut2(biciData$ALTURA, g=4))
+
+# Organizar los dartos
+# Uso de librería reshape2
+library(reshape2)
+# Reformateamos el data frame 
+carMelt <- melt(mtcars, id=c("gear", "cyl"), measure.vars = c("mpg", "hp"))
+# Creamos un data frame que contenga el resumen por cilindraje
+cylData <- dcast(carMelt, cyl ~ variable)         # por default se suman los valores
+cylData <- dcast(carMelt, cyl ~ variable, mean)   # se puede elegir la función a aplicar
+
+
+# Realizamos la sumarización de valores por categoría con tapply
+tapply(InsectSprays$count, InsectSprays$spray, sum)
+# Realizamos la sumarización de valores por categoría con lapply a partir de listas generadas
+listas <- split(InsectSprays$count, InsectSprays$spray)   # Particionamos el vector original por categoría
+sumaListas <- lapply(listas, sum)                         # Sumamos los valores de cada categoría
+vctr <- unlist(sumaListas)                                # Simplifica la lista y la transforma a un vector
+sapply(sumaListas, sum)                                   # Aplica directamente la función sobre el conjunto de vectores 
+# Repetimos el ejemplo usando plyr
+ddply(InsectSprays, .(spray), summarize, resumen=sum(count))
