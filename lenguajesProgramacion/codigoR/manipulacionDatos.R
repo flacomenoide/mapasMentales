@@ -121,3 +121,6 @@ vctr <- unlist(sumaListas)                                # Simplifica la lista 
 sapply(sumaListas, sum)                                   # Aplica directamente la función sobre el conjunto de vectores 
 # Repetimos el ejemplo usando plyr
 ddply(InsectSprays, .(spray), summarize, resumen=sum(count))
+
+# Manipulación de datos con dplyr
+library(dplyr)
