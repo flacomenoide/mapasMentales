@@ -89,29 +89,6 @@ ftable(xt)
 # Chequear el espacio que usa un objeto
 object.size(DF)
 
-# Manipulación de datos con Hmisc
-library(Hmisc)
-# Creación de una variable categórica a partir de una variable continua
-biciData$GRUPOS_ALTURA2 <- cut2(biciData$ALTURA, g = 4)
-
-# Manipulación de Datos con plyr >> install.packages("plyr")
-library(plyr)
-# Ordenamiento de un data frame por una variable
-arrange(td,td$Logico)         # Ascendente
-arrange(td,desc(td$Logico))   # Descendiente
-# Creación de una variable categórica a partir de una variable continua con mutate
-biciData <- mutate(biciData,GRUPOS_ALTURA3=cut2(biciData$ALTURA, g=4))
-
-# Organizar los dartos
-# Uso de librería reshape2
-library(reshape2)
-# Reformateamos el data frame 
-carMelt <- melt(mtcars, id=c("gear", "cyl"), measure.vars = c("mpg", "hp"))
-# Creamos un data frame que contenga el resumen por cilindraje
-cylData <- dcast(carMelt, cyl ~ variable)         # por default se suman los valores
-cylData <- dcast(carMelt, cyl ~ variable, mean)   # se puede elegir la función a aplicar
-
-
 # Realizamos la sumarización de valores por categoría con tapply
 tapply(InsectSprays$count, InsectSprays$spray, sum)
 # Realizamos la sumarización de valores por categoría con lapply a partir de listas generadas
@@ -122,6 +99,43 @@ sapply(sumaListas, sum)                                   # Aplica directamente 
 # Repetimos el ejemplo usando plyr
 ddply(InsectSprays, .(spray), summarize, resumen=sum(count))
 
+# Manipulación de Datos con plyr >> install.packages("plyr")
+library(plyr)
+# Ordenamiento de un data frame por una variable
+arrange(td,td$Logico)         # Ascendente
+arrange(td,desc(td$Logico))   # Descendiente
+# Creación de una variable categórica a partir de una variable continua con mutate
+biciData <- mutate(biciData,GRUPOS_ALTURA3=cut2(biciData$ALTURA, g=4))
+
+# Manipulación de datos con Hmisc
+library(Hmisc)
+# Creación de una variable categórica a partir de una variable continua
+biciData$GRUPOS_ALTURA2 <- cut2(biciData$ALTURA, g = 4)
+
+
+# Organizar los datos
+# Uso de librería reshape2
+library(reshape2)
+# Reformateamos el data frame 
+carMelt <- melt(mtcars, id=c("gear", "cyl"), measure.vars = c("mpg", "hp"))
+# Creamos un data frame que contenga el resumen por cilindraje
+cylData <- dcast(carMelt, cyl ~ variable)         # por default se suman los valores
+cylData <- dcast(carMelt, cyl ~ variable, mean)   # se puede elegir la función a aplicar
+
+
 # Manipulación de datos con dplyr
 library(dplyr)
-select(biciData, NOMBRE:ALTURA)             # Permite seleccionar determinadas columnas de un dataset
+# Selección de columnas
+select(biciData, NOMBRE:ALTURA)             # Permite seleccionar determinadas columnas de un dataset (desde la columna NOMBRE hasta la columna ALTURA)
+select(biciData, -(NOMBRE:ALTURA))
+# Selección de filas
+filter(biciData, ALTURA > 500)
+filter(biciData, ALTURA > 500 & BARRIO == "NUÑEZ")
+# Reordenar las filas de un data frame
+arrange(biciData, BARRIO)
+# Cambia de nombre a una columna
+biciData <- rename(biciData, DIRECCION=DIRECCION_)
+# Crea un data set agrupado a partir de un data frame
+biciData <- group_by(biciData, BARRIO)
+# Genera resúmenes a partir de data frames agrupados
+resumen <-summarize(biciData, CANTIDAD=mean(ALTURA))
