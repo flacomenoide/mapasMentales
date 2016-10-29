@@ -124,3 +124,4 @@ ddply(InsectSprays, .(spray), summarize, resumen=sum(count))
 
 # Manipulación de datos con dplyr
 library(dplyr)
+select(biciData, NOMBRE:ALTURA)             # Permite seleccionar determinadas columnas de un dataset
