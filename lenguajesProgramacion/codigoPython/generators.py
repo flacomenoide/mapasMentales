@@ -54,3 +54,38 @@ longitud = ((nombre, len(nombre)) for nombre in nombres)
 mayor = max(longitud, key=lambda x:x[1])
 print mayor
 
+# Coroutine que imprime un numero enviado en el send
+def ejemplo_coroutine():
+    while True:
+        x = yield
+        print x
+
+c = ejemplo_coroutine()
+c.next()
+c.send(12)
+c.close()
+
+# Coroutine 
+def contador(string):
+    count = 0
+    try:
+        while True:
+            item = yield
+            if isinstance(item,str):
+                if item in string:
+                    count += 1
+                    print item
+                else:
+                    print "No Match"
+            else:
+                print "No string"
+    except GeneratorExit:
+        print count
+
+c1 = contador("Buenos Aires")
+c1.next()
+c1.send("Aire")
+c1.send("Buen")
+c1.send("Quito")
+c1.send(100.2)
+c1.close()
