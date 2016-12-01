@@ -73,7 +73,7 @@ RUN;
  /* Librerías SAS
     =============
 Son ubicaciones donde se almacenan los Data sets SAS se definen con LIBNAME
-WORK es la librería default, la cual es temporal, por lo que su contenido se borra al cerrar la sesion
+WORK es la librería default, la cual es temporal, por lo que su contenido se borra al cerrar la sesión
 Si no se especifica una librería SAS usará el default (WORK)
 */
 LIBNAME MJ '<path/to/file>';
