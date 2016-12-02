@@ -78,15 +78,24 @@ Sentencia INPUT:
 - Le dice a SAS como leer los datos crudos
 - Seguido a la palabra INPUT se escribe la lista de variables separadas por espacio en el orden de aparicion
 - Si las variables son caracteres se debe poner el símbolo $ después del nombre de la variable
-*/
 
- /*
 Estilos de input
 ================
 SAS trabaja con 3 estilos de input:
 - Lista
 - Columna
 - Formateado
+
+Además SAS trabaja con punteros que permiten moverse a diferentes posiciones en una línea o a diferentes líneas
+	+n >> Permite moverse n caracteres a la derecha de la posición actual
+	@n >> Permite moverse a la posición n de la línea actual
+	@string >> Permite moverse al final de la primera aparición del string definido
+	/ >> Permite continuar la lectura del registro en la siguiente línea
+	#n >> Permite saltar a la línea n para continuar la lectura del registro, se puede usar para volver hacia atras
+	@@ >> Indica a SAS que considere la posición actual como el fin de línea para que inicie la lectura de un nuevo registro
+	@ >> Indica a SAS que debe esperar una nueva sentencia INPUT o un fin del DATA STEP para liberar la información de esa variable
+
+Los Estilos de INPUT se pueden combinar
 */
 
 * LIST INPUT ;
@@ -206,4 +215,45 @@ Tipos de INFORMATS (formas generales):
 	w >> indica el ancho total de la variable
 	d >> indica la cantidad de decimales
 	. >> identifica que es un INFORMAT
+
+Los INFORMATS pueden usar modificadores, los cuales permiten leer un formato hasta encontrar un separador o el fin de línea.
+
+Contenido del archivo competencia.dat:
+
+Alicia Grossman  13 c 10-28-2012 7.8 6.5 7.2 8.0 7.9
+Matthew Lee       9 D 10-30-2012 6.5 5.9 6.8 6.0 8.1
+Elizabeth Garcia 10 C 10-29-2012 8.9 7.9 8.5 9.0 8.8
+Lori Newcombe     6 D 10-30-2012 6.7 5.6 4.9 5.2 6.1
+Jose Martinez     7 d 10-31-2012 8.9 9.510.0 9.7 9.0
+Brian Williams   11 C 10-29-2012 7.8 8.4 8.5 7.9 8.0
+
 */
+
+DATA respuesta;
+   INFILE "C:\Users\MiguelJ\Documents\tests\competencia.dat";
+   INPUT
+	Nombre $16.
+	Edad 3. +1
+	Tipo $1. +1
+	Fecha MMDDYY10.
+	(Score1 Score2 Score3 Score4 Score5) (4.1);
+RUN;
+
+ /*
+Contenido del archivo trafico.dat
+freeway 408                          3684 3459
+surface Martin Luther King Jr. Blvd. 1590 1234
+surface Broadway                     1259 1290
+surface Rodeo Dr.                    1890 2067
+freeway 608                          4583 3860
+freeway 808                          2386 2518
+surface Lake Shore Dr.               1590 1234
+surface Pennsylvania Ave.            1259 1290
+*/
+
+DATA trafico;
+   INFILE "C:\Users\MiguelJ\Documents\tests\trafico.dat";
+   INPUT tipo $ @;                        
+   	IF tipo = 'surface' THEN DELETE;       
+   		INPUT nombre $ 9-38 trafico_maniana trafico_tarde; 
+RUN;
