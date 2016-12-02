@@ -8,11 +8,9 @@ Los comentarios en SAS se pueden realizar de 2 maneras:
  2) Para comentar varias líneas de codigo inicia con /* y se finaliza con * /
 	- Si se opta por la segunda manera no comenzar el comentario en la 1er columna
 	  ya que algunos SO interpretan /* como final de un job.
-
 SAS Data Sets
 =============
 Los nombres de los Data sets no son case sensitive
-
 Los Data sets se autodocumentan y almacenan:
  - Nombre del Data set
  - Fecha de Creacion
@@ -22,13 +20,11 @@ Los Data sets se autodocumentan y almacenan:
 	>> Tipo
 	>> Longitud
 	>> Posicion en el Data set
-
 Los data sets de SAS son el sinonimo de una tabla en una base de datos consta de:
  - Observaciones (filas)
  - Variables (columnas)
 	>> Hasta la version 9.1 los Data sets se limitaban a 32676 variables
 	>> Despues de la version 9.1 la cantidad de variables dependen de los recursos disponibles
-
 Las variables pueden ser de 2 tipos:
  - Numerico
 	>> Pueden contener + - . y E
@@ -36,13 +32,11 @@ Las variables pueden ser de 2 tipos:
  - Caracter
 	>> Tienen un límite de 32767 caracteres
 	>> Los datos perdidos son representados por un espacio en blanco
-
 Reglas que deben cumplir las variables:
  - Los nombres de las variables pueden tener hasta 32 caracteres
  - Los nombres de las variables deben empezar con letras o _
  - Los nombres de las variables soportan: letras, numeros y _, no soportan caracteres especiales
  - Los nombres de las variables no son case sensitive, en el caso de impresion de un avariable usa la primera ocurrencia
-
 Principales componentes de un programa SAS
 ==========================================
 Cada uno trae sus propios Steps que en su mayoría son excluyentes.
@@ -53,7 +47,6 @@ Un Step SAS termina cuando encuentra:
  - STOP;
  - ABORT;
 O cuando termina el programa
-
 Tipos de Steps:
 - Data Steps (Data Sets)
 	>> Lee y modifica datos
@@ -63,7 +56,6 @@ Tipos de Steps:
 	>> Tiene un Loop interno que se ejecuta línea a línea y observacion por observacion
  - Proc Steps (Ejecucion de Procesos)
 	>> Analiza datos, ejecuta funciones o imprime reportes
-
 */
 
 * Una manera para poder chequear las opciones del sistema es usar el PROC options;
@@ -76,7 +68,8 @@ Son ubicaciones donde se almacenan los Data sets SAS se definen con LIBNAME
 WORK es la librería default, la cual es temporal, por lo que su contenido se borra al cerrar la sesion
 Si no se especifica una librería SAS usará el default (WORK)
 */
-LIBNAME MJ '<path/to/file>';
+
+LIBNAME MJ 'C:\Users\MiguelJ\Documents\tests';
 
  /* DATA STEP
     =========
@@ -86,6 +79,19 @@ Sentencia INPUT:
 - Seguido a la palabra INPUT se escribe la lista de variables separadas por espacio en el orden de aparicion
 - Si las variables son caracteres se debe poner el símbolo $ después del nombre de la variable
 */
+
+ /*
+Estilos de input
+================
+SAS trabaja con 3 estilos de input:
+- Lista
+- Columna
+- Formateado
+*/
+
+* LIST INPUT ;
+* ========== ;
+* Implica la lectura de variables mediandte separadores (espacio en blanco default) ;
 
 * Importar datos Manualmente ;
 * Es necesaria la sentencia DATALINES, la misma debe ser la última del Data step ;
@@ -114,7 +120,90 @@ Es necesaria la sentencia INFILE
  - SAS asume que la longitud máxima de las líneas de un archivo es de 256 caracteres
  - Si la longitud máxima de las líneas supera los 256 caracteres hay que especificarla en 
    la opcion LRECL = <longitud> en la sentencia INFILE
- - En el archivo externo los valores NULL deben estar especificados como .
- - Si en la sentencia INPUT hay más variables definidas que campos en el archivo externo
+
+Contenido del archivo presidentes.dat:
+
+Adams F 2
+Lincoln R 16
+Grant R 18
+Kennedy D 35
+*/
+
+DATA Presidentes_USA;
+	INFILE "C:\Users\MiguelJ\Documents\tests\presidentes.dat";
+	INPUT presidente $ partido $ cantidad;
+RUN;
+
+ /*
+- Si en la sentencia INPUT hay más variables definidas que campos en el archivo externo
    SAS buscará las variables faltantes en la siguiente línea del archivo
+- En el archivo externo los valores NULL deben estar especificados como .
+
+Contenido del archivo ranas.dat:
+rana1 2.1 1.9 . 3.0
+rana2 2.6 2.5 1.1 .5
+rana3 3.1 3.8 . .
+rana4 5.3 3.2 1.9 2.6
+rana5 1.38 1.3 1.8
+1.5
+rana6 2.27 1.1 . .
+
+*/
+DATA saltos_de_ranas;
+	INFILE "C:\Users\MiguelJ\Documents\tests\ranas.dat";
+	INPUT
+		nombre $
+		peso
+		salto1
+		salto2
+		salto3;
+RUN;
+
+* COLUMN INPUT ;
+* ============ ;
+* Implica la lectura de variables de acuerdo a la posición de los caracteres en la línea del archivo ;
+* No se requiere separadores de campos ;
+* Variables con valor NULL pueden ser espacios en blanco ;
+* Variables de tipo caracter pueden tener espacios en blanco ;
+* Se pueden omitir variables no deseadas ;
+* Formato: ;
+* INPUT <variable> [$] <n>-<m> ... ;
+ /*
+Contenido del archivo arosCebolla.dat:
+
+Columbia Peaches      35  67  1 10  2  1
+Plains Peanuts       210      2  5  0  2
+Gilroy Garlics        151035 12 11  7  6
+Sacramento Tomatoes  124  85 15  4  9  1
+*/
+
+DATA Venta_Aros;
+	INFILE "C:\Users\MiguelJ\Documents\tests\arosCebolla.dat";
+	INPUT
+		visitante $ 1-20
+		ventasAros 21-24
+		ventasBebidas 25-28
+		hitsLocal 29-31
+		hitsVisita 32-34
+		carrerasLocales 35-37
+		carrerasVisita 38-40;
+RUN;
+
+ /*
+FORMATTED INPUT - INFORMATS
+===========================
+- Permiten que SAS interprete los datos de entrada de acuerdo al formato con el que fueron escritos
+- Son muy útiles cuando se trabaja con datos no estándar (un número no estándar puede ser un número hexadecimal)
+- SAS interpreta las fechas como un número que cuenta la cantidad de días a partir del 01-01-1960
+- Todos los informat incluyen el . sin este se considera al informat como un nombre de variable
+- Los INFORMATS van seguido al nombre de la variable en la sentencia INPUT
+- Se puede definir un informat una solaa vez agrupando las variables entre paréntesis
+Tipos de INFORMATS (formas generales):
+ > caracter $INFORMATw.
+ > numérico INFORMATw.d
+ > fecha INFORMATw.
+	$ >> indica que es un INFORMAT de tipo caracter
+	w >> indica el ancho total de la variable
+	d >> indica la cantidad de decimales
+	. >> identifica que es un INFORMAT
 */
