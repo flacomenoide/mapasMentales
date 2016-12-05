@@ -257,3 +257,34 @@ DATA trafico;
    	IF tipo = 'surface' THEN DELETE;       
    		INPUT nombre $ 9-38 trafico_maniana trafico_tarde; 
 RUN;
+
+ /*
+OPCIONES DE INFILE
+===================
+Permite controlar el input
+
+- FIRSTBOS > Indica a partir de qué línea se comienzan a leer los datos
+- OBS > Indica hasta qué línea leer observaciones
+- MISSOVER > Le idica a SAS que no hace falta ir a buscar las variables faltantes en la siguiente línea (INPUT tipo lista)
+- TRUNCOVER > Le indica a SAS que no pase a la siguiente línea a buscar variables faltantes (INPUT columna o formato)
+- DLM o DELIMITER > Permite definir un delimitador diferente al default
+- DLMSTR > Permite usar un string como delimitador en lugar de un caracter simple ('09'x por ejemplo que representa a TAB)
+- DSD > "Delimiter Sensitive Data" tiene varias características:
+	Omite los delimitadores que se encuentren entre comillas
+	No toma en cuenta las comillas como parte del dato
+	Interpreta 2 delimitadores seguidos como NULL
+	Asume , como delimitador
+
+Contenido del archivo helados.dat
+
+Ice-cream sales data for the summer
+Flavor     Location    Boxes sold
+Chocolate  213         123
+Vanilla    213         512
+Chocolate  415         242
+*/
+
+DATA helados;
+   INFILE 'C:\Users\MiguelJ\Documents\tests\helados.dat' FIRSTOBS = 3 OBS = 5;
+   INPUT Sabor $ 1-9 Ubicacion CajasVendidas;
+RUN;
