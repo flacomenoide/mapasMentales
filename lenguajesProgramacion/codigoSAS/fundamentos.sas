@@ -8,9 +8,11 @@ Los comentarios en SAS se pueden realizar de 2 maneras:
  2) Para comentar varias líneas de codigo inicia con /* y se finaliza con * /
 	- Si se opta por la segunda manera no comenzar el comentario en la 1er columna
 	  ya que algunos SO interpretan /* como final de un job.
+
 SAS Data Sets
 =============
-Los nombres de los Data sets no son case sensitive
+Los nombres de los Data sets no son case sensitive.
+Los nombres de los Data sets solo pueden tener hasta 32 caracteres.
 Los Data sets se autodocumentan y almacenan:
  - Nombre del Data set
  - Fecha de Creacion
@@ -37,6 +39,7 @@ Reglas que deben cumplir las variables:
  - Los nombres de las variables deben empezar con letras o _
  - Los nombres de las variables soportan: letras, numeros y _, no soportan caracteres especiales
  - Los nombres de las variables no son case sensitive, en el caso de impresion de un avariable usa la primera ocurrencia
+
 Principales componentes de un programa SAS
 ==========================================
 Cada uno trae sus propios Steps que en su mayoría son excluyentes.
@@ -56,17 +59,13 @@ Tipos de Steps:
 	>> Tiene un Loop interno que se ejecuta línea a línea y observacion por observacion
  - Proc Steps (Ejecucion de Procesos)
 	>> Analiza datos, ejecuta funciones o imprime reportes
-*/
-
-* Una manera para poder chequear las opciones del sistema es usar el PROC options;
-PROC options;
-RUN;
-
- /* Librerías SAS
-    =============
-Son ubicaciones donde se almacenan los Data sets SAS se definen con LIBNAME
-WORK es la librería default, la cual es temporal, por lo que su contenido se borra al cerrar la sesión
-Si no se especifica una librería SAS usará el default (WORK)
+	
+Librerías SAS
+=============
+- Son ubicaciones donde se almacenan los Data sets SAS se definen con LIBNAME.
+- WORK es la librería default, la cual es temporal, por lo que su contenido se borra al cerrar la sesión.
+- Si no se especifica una librería SAS usará el default (WORK).
+- Los nombres de las librería solo pueden tener hasta 8 caracteres.
 */
 
 LIBNAME MJ 'C:\Users\MiguelJ\Documents\tests';
