@@ -66,6 +66,10 @@ Librerías SAS
 - WORK es la librería default, la cual es temporal, por lo que su contenido se borra al cerrar la sesión.
 - Si no se especifica una librería SAS usará el default (WORK).
 - Los nombres de las librería solo pueden tener hasta 8 caracteres.
+- Un sinónimo de una librería es un directorio
+
+Sintaxis para definir una librería:
+LIBNAME <nombre> <Directorio>;
 */
 
 LIBNAME MJ 'C:\Users\MiguelJ\Documents\tests';
