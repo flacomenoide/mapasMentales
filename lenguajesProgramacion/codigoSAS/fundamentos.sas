@@ -195,7 +195,7 @@ FORMATTED INPUT - INFORMATS
 ===========================
 - Permiten que SAS interprete los datos de entrada de acuerdo al formato con el que fueron escritos
 - Son muy útiles cuando se trabaja con datos no estándar (un número no estándar puede ser un número hexadecimal)
-- SAS interpreta las fechas como un número que cuenta la cantidad de días a partir del 01-01-1960
+- SAS interpreta las fechas como un número que cuenta la cantidad de días a partir del 01-01-
 - Todos los informat incluyen el . sin este se considera al informat como un nombre de variable
 - Los INFORMATS van seguido al nombre de la variable en la sentencia INPUT
 - Se puede definir un informat una solaa vez agrupando las variables entre paréntesis
@@ -314,5 +314,31 @@ Se puede usar los operadores en su formato simbólico o mnemotécnico.
 
 Subsetting
 ==========
-
+Existen varias maneras de filtrar los registros de un data set:
+	- Uso de IF
+		Se mantienen los registros que cumplen con la condición planteada.
+		Sintaxis:
+			IF <condición>;
+	- Uso de DELETE
+		Se eliminan los registros que cumplen con la condición planteada.
+		Sintaxis:
+			IF <condición> THEN DELETE;
 */
+
+DATA helados_filtro0;
+	SET helados;
+	IF Sabor eq 'Chocolate';
+RUN;
+
+DATA helados_filtro1;
+	SET helados;
+	IF Sabor = 'Chocolate' THEN DELETE;
+RUN;
+
+ /*
+Selección de Siglos con Fechas
+==============================
+SAS al trabajar con fechas admite años con 2 dígitos, lo cual en ciertas circunstancias puede causar confusiones.
+SAS permite seleccionar un año de corte a partir del cual interpretar el siglo alque corresponde un año con 2 dígitos.
+
+OPTIONS YEARCUTOFF
