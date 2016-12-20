@@ -4,6 +4,14 @@
 PROC options;
 RUN;
 
+ /*
+PROC CONTENTS
+=============
+- Imprime el contenidode la estructura de un Data set.
+*/
+
+PROC contents DATA=helados;
+RUN;
 /*
 PROC IMPORT
 ===========
@@ -33,5 +41,4 @@ OPCIONES
 	DELIMITER = 'c', permite definir un delimitador personalizado, el default es espacio en blanco.
 	GETNAMES = NO, evita asignar el nombre de las variables a partir de la primera fila del archivo, el default es YES.
 	GUESSINROWS = n, usa n filas para determinar los tipos de datos de las variables, el default es 20.
-
 */
