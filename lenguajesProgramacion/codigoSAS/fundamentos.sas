@@ -341,4 +341,34 @@ Selección de Siglos con Fechas
 SAS al trabajar con fechas admite años con 2 dígitos, lo cual en ciertas circunstancias puede causar confusiones.
 SAS permite seleccionar un año de corte a partir del cual interpretar el siglo alque corresponde un año con 2 dígitos.
 
-OPTIONS YEARCUTOFF
+Sintaxis
+
+OPTIONS YEARCUTOFF = <año>;
+
+Ejemplo:
+OPTIONS YEARCUTOFF = 1950;
+Indica que en una fecha cuyo año tenga 2 dígitos va entre 1950 y 2049
+*/
+OPTIONS YEARCUTOFF = 1950;
+
+ /*
+Retención de variables
+======================
+SAS tiene la capacidad de mantener los valores de iteraciones previas de las variables de un Data Set.
+- RETAIN
+	Permite que los valores de las variables estén disponibles en la siguiente iteración.
+	Es posible asignar valores iniciales a las variables
+	El uso de RETAIN reordena el orden de las variables de un data set
+- SUM
+	Retiene los valores de las variables, pero adiciona su valor sucesivamente y o almacena en una expresión.
+
+Sintaxis:
+RETAIN <lista de variables>;
+RETAIN <variable> [valor];
+*/
+
+DATA saltos_acum;
+	RETAIN nombre 'no_name' salto1-salto3 peso 0 peso_acc 0;
+	SET saltos_de_ranas;
+	peso_acc = peso + peso_acc;
+RUN;
