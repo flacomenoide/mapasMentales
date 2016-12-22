@@ -387,7 +387,6 @@ n
 	Puede ir entre () o {} o []
 $
 	Es necesario si las variables del array son de tipo caracter y no han sido previamente definidas
-
 */
 
 DATA saltos_array;
@@ -398,4 +397,39 @@ DATA saltos_array;
 		IF saltos(i) eq . THEN saltos_null = SUM(1,saltos_null);
 	END;
 	DROP I;
+RUN;
+
+ /*
+Listas de Variables
+===================
+
+- SAS tiene la capacidad de interpretar las variables en forma de listas, esto facilita el llamado de variables en lugar de escribirlas una a una
+- SAS utiliza lista de rangos por nombre y lista de prefijo de nombre.
+
+Lista de Rangos por Nombre:
+
+INPUT cat8 cat9 cat10 cat11;
+es similar a
+INPUT cat8-cat11;
+
+Lista de Prefijos de nombres:
+
+variable = cat + cat9 + cat10 + cat11;
+es similar a
+variable = SUM(OF cat:);
+
+Listas Especiales
+_ALL_
+	Todas las variables
+_CHARACTER_
+	Todas las variables de tipo caracter
+_NUMERIC_
+	Todas las variables numéricas
+MEAN(OF _NUMERIC_)
+	Permite usar una lista de variables en una función
+*/
+
+DATA saltos_lista;
+	SET saltos_de_ranas;
+	numericos = SUM(OF _NUMERIC_);
 RUN;
