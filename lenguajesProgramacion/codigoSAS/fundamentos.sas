@@ -372,3 +372,30 @@ DATA saltos_acum;
 	SET saltos_de_ranas;
 	peso_acc = peso + peso_acc;
 RUN;
+
+ /*
+ARRAYS
+======
+- Son grupos de variables del mismo tipo.
+- No se almacenan en los Datasets, sólo existen mientras se ejecuta el Data Step
+
+Sintaxis:
+	ARRAY <nombreArray> (n) [$] <lista de variables>;
+
+n
+	Define la cantidad de elementos del array
+	Puede ir entre () o {} o []
+$
+	Es necesario si las variables del array son de tipo caracter y no han sido previamente definidas
+
+*/
+
+DATA saltos_array;
+	SET saltos_de_ranas;
+	ARRAY saltos (3) salto1 salto2 salto3;
+	DO i = 1 TO 3;
+		salto_total = SUM(saltos(i),salto_total);
+		IF saltos(i) eq . THEN saltos_null = SUM(1,saltos_null);
+	END;
+	DROP I;
+RUN;
