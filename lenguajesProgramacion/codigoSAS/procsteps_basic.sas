@@ -1,5 +1,20 @@
 * PROC Steps ;
- 
+ /*
+Sintaxis General:
+
+PROC <nombre> [opciones] [DATA = <dataset>];
+RUN;
+
+- Si no se define el DATA SAS usará el data set más recientemente creado
+- La opción BY es obligatoria solamente en el PROC sort, ya que le dice a SAS cómo ordenar los datos
+- El uso de BY en otros PROC indica que se debe ejecutar un análisis seperado por cada valor de la variable definida en la opción
+- Todos los PROC SAS asumen que los Data sets ya se encuentran ordenados a excepción del PROC sort
+- TITLE y FOOTNOTE aplican a la salida del PROC ejecutado
+- Se pueden agregar hasta 10 títulos o notas al pie
+- Por default SAS usa los nombres de las variables como etiquetas, pero si especificamos la opción LABEL se pueden crear descripciones más específicas (hasta 256 caracteres)
+- Si se especifica un label dentro de un PROC step estos existirán solamente durante la ejecución del PROC step
+- Todo PROC tiene la capacidad de almacenar su salida en un Data Set usando la sentencia OUT = <dataset>
+*/
 * Una manera para poder chequear las opciones del sistema es usar el PROC options;
 PROC options;
 RUN;
@@ -11,6 +26,9 @@ PROC CONTENTS
 */
 
 PROC contents DATA=helados;
+	TITLE "Data Set: Helados";
+	TITLE2 "Agregando un Título";
+	FOOTNOTE "Nota al Pie agregada";
 RUN;
 /*
 PROC IMPORT
