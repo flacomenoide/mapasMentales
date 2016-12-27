@@ -18,6 +18,7 @@ Los Data sets se autodocumentan y almacenan:
  - Informacion de cada variable
 	>> Nombre
 	>> Label (Si existe)
+		Si se especifica un label dentro de un data step estos serán parte del Data Set.
 	>> Tipo
 	>> Longitud
 	>> Posicion en el Data set
