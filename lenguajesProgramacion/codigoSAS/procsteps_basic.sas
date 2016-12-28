@@ -122,3 +122,47 @@ RUN;
 PROC SORT DATA = excel1 OUT = excel4 SORTSEQ = ASCII;
 	BY DESCENDING var4;
 RUN;
+
+PROC SORT DATA = excel1 OUT = excel5 SORTSEQ = LINGUISTIC (NUMERIC_COLLATION = ON);
+	BY DESCENDING var4;
+RUN;
+
+ /*
+PROC PRINT
+==========
+Permite imprimir el contenido de un data set.
+Sintaxis:
+PROC PRINT [DATA = <data set>] [OPCIONES];
+	[SENTENCIAS OPCIONALES];
+RUN;
+
+OPCIONES
+	NOOBS
+		Evita que se impriman los números de las observaciones
+
+SENTENCIAS OPCIONALES
+	BY
+		Inicia una nueva sección de impresión por cada valor de la variable listada
+	ID
+		Cambia los números de observaciones por los valores de las variables definidas en el ID
+	SUM
+		Imprime la suma de las variables listadas
+	VAR
+		Indica las variables a imprimir y su orden
+	FORMAT
+		Permite interpretar los valores originales con formatos particulares
+*/
+
+PROC PRINT NOOBS;
+RUN;
+
+PROC PRINT DATA = excel0;
+	ID col2;
+	FORMAT col1 PERCENT8.;
+RUN;
+
+ /*
+PROC FORMAT
+===========
+
+*/
