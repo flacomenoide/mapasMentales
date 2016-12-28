@@ -304,6 +304,10 @@ Símbolo		Mnemotócnico		Significado
 <				LT				Menor que
 >=				GE				Mayor o igual que
 <=				LE				Menor o igual que
+			IS NOT MISSING		No es NULL
+			BETWEEN...AND...	Entre los valores
+			CONTAINS			Contiene
+			IN (lista)			Está en la lista
 
 Operadores lógicos
 ==================
@@ -324,6 +328,10 @@ Existen varias maneras de filtrar los registros de un data set:
 		Se eliminan los registros que cumplen con la condición planteada.
 		Sintaxis:
 			IF <condición> THEN DELETE;
+	- Uso de WHERE
+		Similar a IF, mantiene los registros que cumplen con la condición definida
+		Sintaxis:
+			WHERE <condición>;
 */
 
 DATA helados_filtro0;
