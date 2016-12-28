@@ -14,9 +14,10 @@ RUN;
 - Por default SAS usa los nombres de las variables como etiquetas, pero si especificamos la opción LABEL se pueden crear descripciones más específicas (hasta 256 caracteres)
 - Si se especifica un label dentro de un PROC step estos existirán solamente durante la ejecución del PROC step
 - Todo PROC tiene la capacidad de almacenar su salida en un Data Set usando la sentencia OUT = <dataset>
+- Cuando se invoca un Data set en un proc se puede usar la opción WHERE que permite limitar las observaciones del data set antes de usarlo
 */
 * Una manera para poder chequear las opciones del sistema es usar el PROC options;
-PROC options;
+PROC OPTIONS;
 RUN;
 
  /*
@@ -25,7 +26,7 @@ PROC CONTENTS
 - Imprime el contenidode la estructura de un Data set.
 */
 
-PROC contents DATA=helados;
+PROC CONTENTS DATA=helados;
 	TITLE "Data Set: Helados";
 	TITLE2 "Agregando un Título";
 	FOOTNOTE "Nota al Pie agregada";
@@ -60,3 +61,64 @@ OPCIONES
 	GETNAMES = NO, evita asignar el nombre de las variables a partir de la primera fila del archivo, el default es YES.
 	GUESSINROWS = n, usa n filas para determinar los tipos de datos de las variables, el default es 20.
 */
+PROC IMPORT
+	DATAFILE = "C:\Users\MiguelJ\Documents\tests\archivoxls.csv"
+	OUT = excel0;
+RUN;
+
+PROC IMPORT
+	DATAFILE = "C:\Users\MiguelJ\Documents\tests\archivoxls.csv"
+	OUT = excel1 REPLACE
+	DBMS = CSV;
+	GETNAMES = NO;
+RUN;
+
+/*
+PROC SORT
+=========
+Permite organizar los datos, para reportes, combinar data sets o antes de usar la sentencia BY en algún PROC.
+Por default se ordenan los datos de manera ascendente, si necesitamos ordenar de manera descendente se debe especificar la opción DESCENDING
+antes del nombre de cada variable a cambiar el orden
+Sintaxis:
+PROC SORT [DATA = <data set origen>] [OUT = <data set destino>];
+	BY [ASCENDING/DESCENDING] <lista de variables>;
+RUN;
+
+OPCIONES:
+	DATA =
+		Permite definir el data set de entrada
+	OUT =
+		Permite definir el data set de salida
+		Si no se especifica esta opción se reemplazará el data set original
+		Si se especifica NODUPKEY se eliminan las observaciones duplicadas
+	DUPOUT =
+		Especifica el data set en donde se van a poner las observaciones duplicadas
+
+	OPCIONES DE ORDENAMIENTOS
+		SORTSEQ = ASCII
+			Orden: blancos, números, mayúsculas, minúsculas
+		SORTSEQ = EBCDIC
+			Orden: blancos, minúsculas, mayúsculas, números
+		SORTSEQ = LINGUISTIC (...)
+			Permite ordenar letras sin importar si son mayúsculas o minúsculas
+			(STRENGTH = PRIMARY)
+				Los caracteres numéricos que están almacenados como string se pueden ordenar numéricamente
+			(NUMERIC_COLLATION = ON)
+				
+*/
+
+PROC SORT DATA = excel0;
+	BY DESCENDING col1;
+RUN;
+
+PROC SORT DATA = excel0 OUT = excel2;
+	BY col3;
+RUN;
+
+PROC SORT DATA = excel1 OUT = excel3 SORTSEQ = EBCDIC;
+	BY DESCENDING var4;
+RUN;
+
+PROC SORT DATA = excel1 OUT = excel4 SORTSEQ = ASCII;
+	BY DESCENDING var4;
+RUN;
