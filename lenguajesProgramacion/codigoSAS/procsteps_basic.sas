@@ -164,5 +164,33 @@ RUN;
  /*
 PROC FORMAT
 ===========
+- Permite crear formatos propios para su posterior uso
+- Pueden ser usados en sentencias PUT
+- Si se definen formatos en un Data Step, estos forman parte del Data Set, si se usan en un Proc Step son temporales
+- Si un formato es definido para datos de tipo caracter su nombre debe empezar con $
 
+Sintaxis:
+PROC FORMAT;
+	VALUE <nombre> rango1 = 'Valor del formato 1' ... rangoN = 'Valor del formato N';
+
+Ejemplos de Rangos Válidos
+'A' = 'Asia'
+1, 3, 5, 7, 9 = 'Impar'
+5000 - HIGH = 'Inalcanzable'
+13 -< 20 = 'Jóvenes'
+0 <- HIGH = 'Positivo mayor a cero'
+OTHER = 'Datos Erroneos'
 */
+
+PROC FORMAT;
+	VALUE NUMEROS
+		1, 3, 5, 7, 9 = "Impar"
+		2, 4, 6, 8, 10 = "Par"
+		0 = "Cero"
+		OTHER = "Mayor a 10 o Menor a 0";
+RUN;
+
+DATA excel_format;
+	SET excel0;
+	FORMAT col1 NUMEROS. col2 NUMEROS.;
+RUN;
