@@ -194,3 +194,68 @@ DATA excel_format;
 	SET excel0;
 	FORMAT col1 NUMEROS. col2 NUMEROS.;
 RUN;
+
+ /*
+PROC MEANS
+==========
+Permite calcular estadísticos de variables numéricas de un Data Set, si no se define ninguna variable se calculan los estadísticos para todas las variables numéricas.
+Sintaxis:
+	PROC MEANS [opciones] [estadísticos];
+		[Opciones de control]
+	RUN;
+
+OPCIONES:
+	MAXDEC = n [MISSING]
+		- Cantidad de posiciones decimales
+		- Si se especifica MISSING se considera a los mising como un grupo válido
+
+Estadísticos disponibles:
+	MAX - Valor máximo
+	MIN - Valor mínimo
+	MEAN - Promedio
+	MEDIAN - Mediana
+	MODE - Moda
+	N - Cantidad de valores no MISSING
+	NMISS - Cantidad de valores MISSING
+	RANGE - Rango de valores
+	STDDEV - Desviación Estándar
+	SUM - Suma
+
+Si no se especifican estadísticos se calculan los default. Los estadísticos calculados por default son:
+	N
+	MEAN
+	STDDEV
+	MIN
+	MAX
+
+Opciones de Control:
+	BY
+		Calcula los estadísticos por cada valor de la variable definida
+	CLASS
+		Realiza un análisis separado por cada nivel de valores de la variable, su salida es más compacta que BY y los datos no necesitan estar previamente ordenados
+	VAR
+		Especifica qué variables numéricas se usarán para calcular los estadísticos
+
+Opciones para exportar resultados:
+	OUTPUT OUT = <data set>
+		Permite exportar los resultados a un data set en particular
+*/
+
+PROC MEANS DATA = excel0 MAXDEC = 2 MISSING;
+RUN;
+
+PROC MEANS DATA = excel0 MIN MAX RANGE SUM STDDEV;
+RUN;
+
+PROC SORT DATA = excel_format;
+	BY col2;
+
+PROC MEANS DATA = excel_format;
+	CLASS col1;
+	BY col2;
+RUN;
+
+PROC MEANS DATA = excel_format;
+	VAR COL3 COL4;
+	OUTPUT OUT = excel_mean_export MIN = COL3_MIN COL4_MIN MAX = COL3_MAX COL4_MAX;
+RUN;
