@@ -3,12 +3,6 @@
 * https://support.sas.com/delwiche ;
 
  /*
-Registro en SAS on Demand (Crear Cuenta)
-https://odamid.oda.sas.com/SASODARegistration/
-
-Curso SAS - Passion Driven Statistics
-https://odamid.oda.sas.com/SASODAControlCenter/enroll.html?enroll=cbf3391d-b677-4101-8fb5-a3d39f516d16
- 
 Los comentarios en SAS se pueden realizar de 2 maneras:
  1) Para comentar una línea de codigo se usa "*" an inicio y ";" al final
  2) Para comentar varias líneas de codigo inicia con /* y se finaliza con * /
@@ -55,6 +49,7 @@ Un Step SAS termina cuando encuentra:
  - STOP;
  - ABORT;
 O cuando termina el programa
+
 Tipos de Steps:
 - Data Steps (Data Sets)
 	>> Lee y modifica datos
@@ -447,4 +442,20 @@ MEAN(OF _NUMERIC_)
 DATA saltos_lista;
 	SET saltos_de_ranas;
 	numericos = SUM(OF _NUMERIC_);
+RUN;
+
+ /*
+Un Data Step puede usarse para exportar Data Sets de una manera similar a como se los lee.
+
+Las sentencias relacionadas son:
+INPUT				OUTPUT
+=====				======
+INFILE				FILE
+INPUT				PUT
+*/
+
+DATA _NULL_;
+	SET saltos_de_ranas;
+	FILE "C:\Users\MiguelJ\Documents\tests\saltos_export.csv";
+	PUT nombre peso salto1-salto3;
 RUN;
