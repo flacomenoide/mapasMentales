@@ -3,6 +3,12 @@
 * https://support.sas.com/delwiche ;
 
  /*
+Registro en SAS on Demand (Crear Cuenta)
+https://odamid.oda.sas.com/SASODARegistration/
+
+Curso SAS - Passion Driven Statistics
+https://odamid.oda.sas.com/SASODAControlCenter/enroll.html?enroll=cbf3391d-b677-4101-8fb5-a3d39f516d16
+ 
 Los comentarios en SAS se pueden realizar de 2 maneras:
  1) Para comentar una línea de codigo se usa "*" an inicio y ";" al final
  2) Para comentar varias líneas de codigo inicia con /* y se finaliza con * /
