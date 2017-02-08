@@ -156,8 +156,9 @@ SENTENCIAS OPCIONALES
 PROC PRINT NOOBS;
 RUN;
 
-PROC PRINT DATA = excel0;
+PROC PRINT DATA = EXCEL0;
 	ID col2;
+	SUM COL1 COL2 COL4;
 	FORMAT col1 PERCENT8.;
 RUN;
 
@@ -258,4 +259,175 @@ RUN;
 PROC MEANS DATA = excel_format;
 	VAR COL3 COL4;
 	OUTPUT OUT = excel_mean_export MIN = COL3_MIN COL4_MIN MAX = COL3_MAX COL4_MAX;
+RUN;
+
+ /*
+PROC FREQ
+=========
+Permite generar tablas de frecuencia a partir de las variables de un dataset
+
+Sintaxis:
+	PROC FREQ;
+		TABLES <lista de variables a combinar> / [OPCIONES]
+Ejemplo:
+	TABLES SEX * YEARSofEDUCATION
+
+OPCIONES:
+- LIST
+	Imprime las tablas en formato lista en lugar de grid
+- MISSPRINT
+	Incluye valores missing en las frecuencias, pero no en los porcentajes
+- MISSING
+ 	Incluye valores missing en las frecuencias y en los porcentajes
+- NOCOL
+	No imprime la columna de porcentajes en las tablas de frecuencias
+- NOPERCENT
+	No imprime ningún porcenaje
+- NOROW
+	No imprime los porcentajes en las filas
+- OUT = <data set>
+	Genera unata Set con los datos de las tablas de frecuencia
+*/
+
+PROC FREQ data = excel_format;
+	TABLE col1 * col2 / NOROW NOCOL;
+RUN;
+
+ /*
+PROC TABULATE
+=============
+- Permite generar reportes tabulares
+- Está basado en Table Producing Language
+
+Sintaxis:
+	PROC TABULATE [MISSING];
+		CLASS <lista de variables de clase>;
+		TABLE [<dimensión página>,] [<dimensión fila>,] <dimensión columna>;
+	RUN;
+
+TABLE
+	Se puede especificar varias veces
+	Cada especificación puede llegar a tener 3 dimensiones
+	La dimensión default es la de columna
+CLASS
+	Lista las variables categóricas (Dimensiones) del Data Set
+VAR
+	Lista las variables continuas del Data Set
+
+Keywords válidos para las dimensiones:
+	ALL - Totales
+	MAX
+	MIN
+	MEAN
+	MODE
+	N
+	NMISS
+	PCTN - Porcentaje de observaciones para un grupo
+	PCTSUM
+	STDDEV
+	SUM
+
+Se puede personalizar las tablas generadas por PROC TABULATE
+OPCIONES:
+	FORMAT = <formato>
+		Mejora el formato de las tablas generadas
+		Se puede especificar formato por variable
+	TABLE:
+	Estas opciones deben estar separadas por el caracter "/" de la dimensión
+	BOX =
+		Permite escribir una breve frase que aparece en la esquina superior izquierda de cada reporte
+	MISSTEXT =
+		Especifica un valor default para las celdas vacías
+	ROW = FLOAT
+		Permite eliminar las cajas vacías
+
+*/
+
+PROC TABULATE data = excel0 MISSING;
+	CLASS col1;
+	VAR col4;
+	TABLE col1, col4 * MEAN;
+RUN;
+
+ /*
+PROC REPORT
+===========
+Permite generar reportes
+
+Sintaxis:
+	PROC REPORT NOWINDOWS [MISSING];
+		COLUMN <lista de variables>;
+		DEFINE <variable> / [OPCIONES] 'COLUMN HEADER';
+	RUN;
+
+OPCIONES:
+- ACROSS
+	Imprime una columna por cada valor de la variable (Sumariza columnas)
+- ANALYSIS
+	Calcula estadísticas de la variable
+- COMPUTED
+	Crea una nueva variable que se calcula dentro del bloque compute
+- DISPLAY
+	Crea una fila por cada observación en el Data Set
+- GROUP
+	Crea una fila por cada valor único de la variable (Sumariza Filas)
+- ORDER
+	Crea una fila por observación con los valores ordenados acorde a los valores de la variable
+
+Para cambiar el encabezado de una columna en particular luego de / escribimos entre comillas el texto deseado.
+El comportamiento por defecto omite los valores MISSING en las sentencias ORDER y GROUP, para cambiar este comportamiento
+se debe agregar la palabra MISSING al PROC.
+
+Se puede insertar saltos de página usando las sentencias, necesita una ubicación (BEFORE o AFTER):
+	- BREAK
+		Inserta un salto de página por cada valor de la variable
+	- RBREAK
+		Inserta un salto de página por cada grupo o reporte, necesita una sección GROUP U ORDER
+
+	Los saltos de página pueden usar SUMMARIZE, que imprime los totales en el caso de variables numéricas.
+
+Sintaxis:
+BREAK AFTER <variable> / SUMMARIZE;
+RBREAK AFTER / SUMMARIZE;
+
+Estadísticas disponibles:
+	MAX
+	MIN
+	MEAN
+	MEDIAN
+	MODE
+	N
+	NMISS
+	PCTN
+	PCTSUM
+	STD
+	SUM
+Para imprimir varios estadísticos hay que separarlos por una "," de la variable deseada en la sentencia COLUMN.
+
+Permite calcular nuevas variables usando el bloque COMPUTE ... ENDCOMP, en este bloque se puede agregar código para calcular una nueva variable.
+Sintaxis:
+	DEFINE nuevaVariable / COMPUTED;
+	COMPUTE nuevaVariable / opciones;
+		<cálculos>
+	ENDCOMP;
+
+	- Al usar una variable preexistente se debe usar una estadística asociada (Default = SUM)
+	- Para usar variables de texto hay que agregar la opción CHAR y en lo posible también la opción LENGTH
+	- Es conveniente usar formatos personalizados para generar agrupaciones para evitar crear nuevas variables
+*/
+
+PROC REPORT data = excel0 NOWINDOWS MISSING;
+	COLUMN col1 col2,(MEAN N MIN MAX) col4 X TEXTO;
+	BREAK AFTER COL1 / summarize style=[font_weight=bold];
+	DEFINE COL1 / GROUP;
+	DEFINE COL2 / ANALYSIS MEAN;
+	DEFINE COL4 / DISPLAY "Columna 4";
+	DEFINE X / COMPUTED;
+	COMPUTE X;
+		X = col4/2;
+	ENDCOMP;
+	DEFINE TEXTO / COMPUTED;
+	COMPUTE TEXTO / CHAR LENGTH = 200;
+		TEXTO = "Se puede personalizar este texto por línea usando IF";
+	ENDCOMP;
 RUN;
