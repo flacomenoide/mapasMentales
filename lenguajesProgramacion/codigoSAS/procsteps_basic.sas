@@ -431,3 +431,13 @@ PROC REPORT data = excel0 NOWINDOWS MISSING;
 		TEXTO = "Se puede personalizar este texto por línea usando IF";
 	ENDCOMP;
 RUN;
+
+ /*
+PROC TEMPLATE
+=============
+Permite crear templates usando PROC TEMPLATE, pero su uso es muy arcaico.
+Existen tamplates preestablecidos que se pueden usar.
+Los estilos se pueden usar en diferentes PROCs (PRINT, REPORT y TABULATE) mediante la sentencia STYLE=.
+*/
+PROC TEMPLATE;
+	LIST styles;
