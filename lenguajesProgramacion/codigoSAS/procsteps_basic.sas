@@ -21,6 +21,29 @@ PROC OPTIONS;
 RUN;
 
  /*
+Personalización de Títulos y Pie de Páginas
+===========================================
+Los procs que permiten imprimir información usualmente pueden ser personalizados, estos procs pueden hacer uso de las sentencias:
+	TITLE
+	FOOTNOTE
+
+Sintaxis:
+	TITLE opciones 'texto' ... opciones 'texto';
+	FOOTNOTE opciones 'texto' ... opciones 'texto';
+
+Opciones:
+	COLOR =
+	BCOLOR =
+	HEIGHT =
+	JUSTIFY =
+	FONT =
+	BOLD
+	ITALIC
+
+La altura soporta PT, IN, CM
+*/
+
+ /*
 PROC CONTENTS
 =============
 - Imprime el contenidode la estructura de un Data set.
@@ -31,7 +54,8 @@ PROC CONTENTS DATA=helados;
 	TITLE2 "Agregando un Título";
 	FOOTNOTE "Nota al Pie agregada";
 RUN;
-/*
+
+ /*
 PROC IMPORT
 ===========
 - Tiene la capacidad de identificar automáticamente los tipos de datos basado en las 20 primeras líneas de datos.
@@ -73,7 +97,7 @@ PROC IMPORT
 	GETNAMES = NO;
 RUN;
 
-/*
+ /*
 PROC SORT
 =========
 Permite organizar los datos, para reportes, combinar data sets o antes de usar la sentencia BY en algún PROC.
@@ -136,11 +160,11 @@ PROC PRINT [DATA = <data set>] [OPCIONES];
 	[SENTENCIAS OPCIONALES];
 RUN;
 
-OPCIONES
+OPCIONES:
 	NOOBS
 		Evita que se impriman los números de las observaciones
 
-SENTENCIAS OPCIONALES
+SENTENCIAS OPCIONALES:
 	BY
 		Inicia una nueva sección de impresión por cada valor de la variable listada
 	ID
@@ -151,12 +175,29 @@ SENTENCIAS OPCIONALES
 		Indica las variables a imprimir y su orden
 	FORMAT
 		Permite interpretar los valores originales con formatos particulares
+
+PERSONALIZACION:
+	Se necesita especificar Ubicación y Atributo.
+	Ubicación:
+		DATA - Todos los datos
+		HEADER - Nombres de las variables
+		OBS - Datos de las observaciones
+		OBSHEADER - Cabecera de las observaciones
+		TOTAL - Fila de Totales
+		GRANDTOTAL - Fila de los gran totales
 */
 
 PROC PRINT NOOBS;
 RUN;
 
 PROC PRINT DATA = EXCEL0;
+	ID col2;
+	SUM COL1 COL2 COL4;
+	FORMAT col1 PERCENT8.;
+RUN;
+
+PROC PRINT DATA = EXCEL0
+	STYLE(DATA) = {BACKGROUND = GRAY FOREGROUND = WHITE};
 	ID col2;
 	SUM COL1 COL2 COL4;
 	FORMAT col1 PERCENT8.;
@@ -414,6 +455,12 @@ Sintaxis:
 	- Al usar una variable preexistente se debe usar una estadística asociada (Default = SUM)
 	- Para usar variables de texto hay que agregar la opción CHAR y en lo posible también la opción LENGTH
 	- Es conveniente usar formatos personalizados para generar agrupaciones para evitar crear nuevas variables
+
+PERSONALIZACION:
+	Se pueden personalizar diferentes ubicaciones:
+		HEADER
+		COLUMN
+		SUMMARY
 */
 
 PROC REPORT data = excel0 NOWINDOWS MISSING;
@@ -441,3 +488,4 @@ Los estilos se pueden usar en diferentes PROCs (PRINT, REPORT y TABULATE) median
 */
 PROC TEMPLATE;
 	LIST styles;
+RUN;
