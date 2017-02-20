@@ -8,7 +8,7 @@ https://odamid.oda.sas.com/SASODARegistration/
 
 Curso SAS - Passion Driven Statistics
 https://odamid.oda.sas.com/SASODAControlCenter/enroll.html?enroll=cbf3391d-b677-4101-8fb5-a3d39f516d16
- 
+
 Los comentarios en SAS se pueden realizar de 2 maneras:
  1) Para comentar una línea de codigo se usa "*" an inicio y ";" al final
  2) Para comentar varias líneas de codigo inicia con /* y se finaliza con * /
@@ -464,4 +464,65 @@ DATA _NULL_;
 	SET saltos_de_ranas;
 	FILE "C:\Users\MiguelJ\Documents\tests\saltos_export.csv";
 	PUT nombre peso salto1-salto3;
+RUN;
+
+ /*
+Modificar y Combinar Data Sets
+==============================
+La sentencia SET permite leer data sets preexistentes, facilitando acciones como:
+	Agregar variables
+	Crear subsets del Data set original
+	Modificar un Data set
+Si el nombre del data set original es igual al nuevo, el data set original es sobreescrito.
+La sentencia SET permite realizar appends de varios data sets listándolos uno después de otro.
+Se pueden entrelazar los Data Sets (Unirlos mantenmiendo un orden general), para esto los data sets deben estar ordenados previamente
+
+Sintaxis:
+DATA <nombre del nuevo data set>;
+	SET <data set original> [<otro data set>];
+
+DATA <nombre del nuevo Data Set>;
+	SET <listado de data sets>;
+	BY <listado de variables>;
+*/
+
+* Subseting un Data Set;
+DATA respuesta1;
+	SET respuesta (WHERE = (score1 > 7));
+RUN;
+
+* Haciendo append de 2 Data Sets;
+DATA excel_append;
+	SET excel1 excel2;
+RUN;
+
+* Entrelazar Data Sets;
+PROC SORT DATA = excel2;
+	BY col1;
+PROC SORT DATA = excel0;
+	BY col1;
+DATA excel_mezclado;
+	SET excel0 excel2;
+	BY col1;
+RUN;
+
+ /*
+JOINS
+=====
+La sentencia MERGE se usa para unir 2 Data Sets por medio de una variable clave.
+Como prerequisito es necesario que los data sets se encuentren previamente ordenados por las variables a unirlos.
+El uso de la sentencia BY es obligatorio, ya que sin ella la operación se realizará en el orden original de las filas de los data sets.
+Si las columnas de los data sets tienen el mismo nombre se mantendrán las del último data set listado.
+
+Sintaxis:
+DATA <nuevo data set>;
+	MERGE <data set1> <data set2>;
+	BY <listado de variables comunes>;
+
+*/
+
+* Inner Join ;
+DATA excel_joineado;
+	MERGE excel2 excel0 (RENAME = (col3=col23 col4=col24));
+	BY COL1;
 RUN;
