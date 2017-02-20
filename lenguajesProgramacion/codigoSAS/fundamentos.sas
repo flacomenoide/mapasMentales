@@ -548,3 +548,47 @@ DATA copy_excel2;
 	UPDATE copy_excel2 excel2;
 	BY col1;
 RUN;
+
+ /*
+Crear varios Data Sets
+======================
+El Data Step nos permite definir varios data sets como salida, lo que nos permite generar en un mismo Step múltiples data sets resultantes.
+
+Sintaxis:
+DATA <listado de data sets>;
+*/
+
+* Genera múltiples Data Sets con el mismo contenido;
+DATA excel_co0 excel_co1 excel_co2;
+	SET excel4;
+RUN;
+
+* Genera múltiples data sets con el contenido diferente;
+DATA excel_co20 excel_co21;
+	SET excel0;
+	IF col3 > 10 THEN OUTPUT excel_co20;
+	ELSE OUTPUT excel_co21;
+RUN;
+
+ /*
+Al usar data sets como en los data steps se pueden usar opciones que permiten optimizar algunos procesos.
+
+Opciones:
+KEEP = <lista de variables>
+	Le indica a sas que variables del data set usar
+DROP = <lista de variables>
+	Le indica a sas que variables del data set no usar
+RENAME = (<nombre viejo> = <nombre nuevo>)
+	Permite renombrar una variable
+FIRSTOBS = n
+	Indica que se debe empezar a leer a partir de la fila n
+OBS = n
+	Finaliza la lectura en la fila n
+LABEL = 'Etiqueta del Data Set'
+	Permite definir una etiqueta descriptiva para el data set
+IN = <flag>
+	Permite establecer una etiqueta a la observación (1 indica presencia del flag y 0 ausencia)
+WHERE = (<condición>)
+	Permite seleccionar observaciones que cumplan con un condición particular.
+WHERE
+*/
