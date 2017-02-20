@@ -526,3 +526,25 @@ DATA excel_joineado;
 	MERGE excel2 excel0 (RENAME = (col3=col23 col4=col24));
 	BY COL1;
 RUN;
+
+ /*
+La sentencia UPDATE se usa cuando es necesario actualizar los datos de un Data Set.
+Los valores faltantes no reemplazan valores antiguos.
+Una resticción es que sólo permite usar 2 data sets.
+Los data sets deben estar ordenados previamente.
+Los valores de la sentencia BY deben ser valores únicos.
+
+Sintaxis:
+DATA <nombre del data set>;
+	UPDATE <nombre del data set> <otro data set>;
+	BY <lista de variables>;
+*/
+
+DATA copy_excel2;
+	SET excel0;
+PROC SORT;
+	BY col1;
+DATA copy_excel2;
+	UPDATE copy_excel2 excel2;
+	BY col1;
+RUN;
