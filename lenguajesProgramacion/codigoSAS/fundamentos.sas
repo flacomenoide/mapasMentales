@@ -590,5 +590,46 @@ IN = <flag>
 	Permite establecer una etiqueta a la observación (1 indica presencia del flag y 0 ausencia)
 WHERE = (<condición>)
 	Permite seleccionar observaciones que cumplan con un condición particular.
-WHERE
 */
+
+ /*
+Variables Automáticas
+=====================
+SAS crea algunas variables automáticamente que pueden ser usadas en la ejecución de un Data Step.
+
+Variables asociadas al data set:
+_N_
+	Indica el número de loops que dió SAS en un Data Step, no necesariamente es igual a la cantidad de filas de un data set.
+_ERROR_
+	Tiene un valor de 1 si es que existiese un error en la ejecución.
+
+Variables asociadas a variables (Se debe usar BY):
+FIRST.<variable>
+	Es una etiqueta que indica si SAS se encuentra en la primer iteración de un grupo de registros
+LAST.<variable>
+	Es una etiqueta que indica si SAS se encuentra en la última iteración de un grupo de registros
+*/
+
+DATA temp;
+	INPUT group x;
+	CARDS;
+	1 23
+	1 34
+	1 .
+	1 45
+	2 78
+	2 92
+	2 45
+	2 89
+	2 34
+	2 76
+	3 31
+	4 23
+	4 12
+;
+DATA new;
+	SET temp;
+	BY group;
+	first=first.group;
+	last=last.group;
+RUN;
