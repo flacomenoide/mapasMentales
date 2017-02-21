@@ -489,3 +489,33 @@ Los estilos se pueden usar en diferentes PROCs (PRINT, REPORT y TABULATE) median
 PROC TEMPLATE;
 	LIST styles;
 RUN;
+
+ /*
+PROC TRANSPONSE
+===============
+Permite convertir las filas en columnas y viceversa.
+
+Sintaxis:
+PROC TRANSPOSE
+	DATA = <data set>
+	OUT = <data set resultante>;
+
+Sentencias adicionales:
+BY <lista de variables>
+	Permite especificar las variables que se quieren mantener como tal.
+	Existirá una observación por cada nivel del BY.
+	El data set debe estar ordenado previamente por la variable BY.
+ID <lista de variables>
+	Lista las variables que se van a usar para construir nuevas.
+	El contenido de estas variables se usa como el nombre de las nuevas columnas.
+VAR <lista de variables>
+	Lista las variables cuyo valor se quiere trasponer.
+	
+*/
+
+PROC TRANSPOSE
+	DATA = excel2
+	OUT = excel_t;
+	ID col4;
+	VAR col1-col3;
+RUN;
