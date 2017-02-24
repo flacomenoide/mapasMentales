@@ -17,6 +17,20 @@ Macros
 		%MACRO <nombre de la macro>;
 		...
 		%MEND [<nombre de la macro>];
+	MAUTOSOURCE y SASAUTOS =
+		Son opciones del sistema que le dicen a SAS dónde buscar MACROS.
+	Las macros pueden hacer uso de parámetros
+		Sintaxis:
+		%MACRO <nombre de la macro> (par1= , par2= , par3= );
+		...
+		%MEND [<nombre de la macro>];
+	Las macros de SAS permiten usar lógica condicional.
+		Sintaxis:
+		%IF <condición> %THEN;
+		...
+		%ELSE %IF <condición> %THEN;
+		...
+		%END;
 
 Macro Variables
 ===============
