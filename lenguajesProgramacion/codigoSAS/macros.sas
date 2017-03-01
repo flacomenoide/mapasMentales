@@ -62,3 +62,34 @@ Macro Variables
 %LET var3 = "&var0";
 %LET var4 = '&var0';
 %LET var5 = &var0.no es&var2.;
+
+ /*
+CALL SYMPUT
+===========
+Permite tomar un valos de un Data set y asignarlo a una macro variable.
+Sintaxis:
+	CALL SYMPUT("<macro variable>", valor);
+
+No se puede usar una macro variabledentro del mismo data step ya que SAS asigna los valores después que el Data Step se ejecuta.
+*/
+
+ /*
+Opciones del sistema para debugging:
+
+MERROR - NOMERROR
+	Permite mostrar Warnings si se invocan macros que SAS no encuentra.
+SERROR - NOSERROR
+	Permite mostrar mensajes de error cuando SAS no encuentra macro variables.
+MLOGIC - NOMLOGIC
+	Permite imprimir detalles de la ejecución de las macros.
+MPRINT - NOMPRINT
+	Permite imprimir en el log el código SAS generado por las macros.
+SYMBOLGEN - NOSYMBOLGEN
+	Permite imprimir en el log los valores de las macro variables.
+
+Para activar o desactivar las opciones de sistema se puede ejecutar la sentencia OPTIONS
+Sintaxis:
+	OPTIONS <lista de opciones de sistema>;
+*/
+
+OPTIONS MPRINT SYMBOLGEN NOMLOGIC;
