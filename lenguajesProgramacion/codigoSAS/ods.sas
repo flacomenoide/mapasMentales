@@ -151,3 +151,79 @@ ODS PDF
 	FILE = 'reporte.pdf'
 	STYLE = SANSPRINTER;
 ODS PDF CLOSE;
+
+ /*
+ODS Graphics
+============
+Permite crear gráficos, a partir de SAS 9.3 es parte de SAS Base (no necesita licencia adicional)
+Para habilitar esta opción se ejecuta:
+	ODS GRAPHICS ON;
+
+Permite realizar diferentes tipos de gráficos:
+	- Gráficos X-Y
+	- Distribuciones Continuas
+	- Distribuciones Categóricas
+
+Los gráficos se pueden realizar usando el PROC SGPLOT.
+*/
+ODS GRAPHICS ON;
+
+ /*
+BAR CHAR (variables categóricas)
+========
+Sintaxis:
+	PROC SGPLOT;
+		<HBAR|VBAR> <variable> / <opciones>;
+
+HBAR - Barras Horizontales
+VBAR - Barras Verticales
+
+Opciones:
+ALPHA = <n>
+	Nivel de los límites de confianza, valor por Defecto 0.05 (5%)
+	0 >> 100% de confianza
+	1 >> 0% de confianza
+BARWIDTH = <n>
+	Ancho de las barras
+	Mínimo: 0.01
+	Máximo: 1
+	Default: 0.8
+DATALABEL = <variable>
+	Permite asignar los valores de la etiqueta que serán usados en cada barra basados en los valores de una variable, si el valor
+	tiene diferentes valores en diferentes filas usará el primero.
+DISCRETEOFFSET = <n>
+	Desplazamiento de las barras desde su punto medio.
+	Mínimo: -0.5
+	Máximo: 0.5
+	Default: 0
+LIMITSTAT = <estadistica>
+	Especifica el tipo de límite a mostrar.
+	Esta opción no se puede usar con la opción GROUP =
+	Estadísticas posibles de usar:
+	- CLM
+	- STDDEV
+	- STDERR
+MISSING
+	Incluye una barra para los valores MISSING
+GROUP = <variable>
+	Define la agrupación de los datos en relación a una variable definida.
+GROUPDISPLAY = <tipo>
+	Especifica como mostrar las barras:
+	- STACK (Default)
+	- CLUSTER
+RESPONSE = <variable>
+	Especifica la variable numérica a ser sumarizada
+STAT = <estadstico>
+	Define el estadístico a usar para la sumarización de los valores.
+	- FREQ >> Default en los casos que existe RESPONSE
+	- MEAN
+	- SUM >> Default para los casos que RESPONSE NO existe
+TRANSPARENCY = <n>
+	Indica el grado de transparencia de la barra
+	Mínimo: 0 (Default) >> Sin transparencia
+	Máximo: 1 >> 100% de transparencia
+*/
+
+PROC SGPLOT DATA = helados;
+	VBAR sabor / alpha = 0.1 barwidth = 0.5 DATALABEL = sabor DISCRETEOFFSET = -0.2 RESPONSE = cajasVendidas;
+RUN;
