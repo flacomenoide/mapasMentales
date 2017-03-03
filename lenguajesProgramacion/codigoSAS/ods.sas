@@ -227,3 +227,36 @@ TRANSPARENCY = <n>
 PROC SGPLOT DATA = helados;
 	VBAR sabor / alpha = 0.1 barwidth = 0.5 DATALABEL = sabor DISCRETEOFFSET = -0.2 RESPONSE = cajasVendidas;
 RUN;
+
+/*
+HISTOGRAMAS Y CURVAS DE DENSIDAD(variables contínuas)
+================================
+Usualmente los valores se dividen en intervalos
+Sintaxis:
+	PROC SGPLOT;
+		HISTOGRAM <variable> / <opciones>;
+
+Opciones:
+BINSTART = <n>
+	Punto medio del primer intervalo
+BINWIDTH = <n>
+	Ancho del intervalo, no se puede usar junto a la opción NBINS
+NBINS = <n>
+	Cantidad de intervalos
+SCALE = <tipo>
+	Define las escalas para los ejes verticales
+	Posibles valores:
+	- PERCENT (Default)
+	- SCALE
+	- PROPORTION
+SHOWBINS
+	Muestra marcas en los puntos medios de los intervalos
+TRANSPARENCY = <n>
+	Grado de transparencia
+	0 (Default) >> 0% de transparencia
+	1 >> 100% de transparencia
+*/
+
+PROC SGPLOT DATA = helados;
+	HISTOGRAM cajasVendidas;
+RUN;
