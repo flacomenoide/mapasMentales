@@ -308,3 +308,26 @@ TRANSPARENCY = <n>
 PROC SGPLOT DATA = helados;
 	VBOX cajasVendidas;
 RUN;
+
+ /*
+SCATTER PLOTS (variables contínuas)
+=============
+Sintaxis:
+	PROC SGPLOT;
+		SCATTER X = <variable horizontal>
+				Y = <variable vertical> / <opciones>;
+
+Opciones:
+DATALABEL = <variable>
+	Etiqueta para cada data point, si no se especifica una variable se presenta los valores de Y
+GROUP = <variable>
+	Define una variable para agrupar los datos
+NOMISSINGGROUP
+	Especifica que no genereun grupo con valores MISSING
+TRANSPARENCY = <n>
+	Grado de transparencia (0 - 1)
+*/
+
+PROC SGPLOT DATA = helados;
+	SCATTER X = cajasVendidas Y = ubicacion;
+RUN;
