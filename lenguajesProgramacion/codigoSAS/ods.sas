@@ -280,3 +280,31 @@ TRANSPARENCY = <n>
 PROC SGPLOT DATA = helados;
 	DENSITY cajasVendidas / TYPE = kernel;
 RUN;
+
+ /*
+BOXPLOTS (variables contínuas)
+========
+Sintaxis:
+	PROC SGPLOT;
+		<VBOX|HBOX> <variable> / <opciones>;
+
+VBOX >> Verticales
+HBOX >> Horizontales
+
+Opciones:
+CATEGORY = <variable>
+	Variable categórica que define de acuerdo a sus valores los diferentex BOXPLOTs que se generarán
+EXTREME
+	Indica que los bigoets se deben extender hasta el mínimo y máximo, por lo que los outliers no son identificados
+GROUP = <variable>
+	Especifica una segunda variable categórica
+	Esto genera una BOXPLOT por cada valor de esta variable dentro de cada categoría
+MISSING
+	Incluye un BOXPLOT para la categoría o grupo MISSING
+TRANSPARENCY = <n>
+	Grado de transparencia para el BOXPLOT (0 - 1)
+*/
+
+PROC SGPLOT DATA = helados;
+	VBOX cajasVendidas;
+RUN;
