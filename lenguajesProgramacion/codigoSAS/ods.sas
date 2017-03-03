@@ -229,8 +229,8 @@ PROC SGPLOT DATA = helados;
 RUN;
 
 /*
-HISTOGRAMAS Y CURVAS DE DENSIDAD(variables contínuas)
-================================
+HISTOGRAMAS (variables contínuas)
+===========
 Usualmente los valores se dividen en intervalos
 Sintaxis:
 	PROC SGPLOT;
@@ -259,4 +259,24 @@ TRANSPARENCY = <n>
 
 PROC SGPLOT DATA = helados;
 	HISTOGRAM cajasVendidas;
+RUN;
+
+ /*
+CURVAS DE DENSIDAD (variables contínuas)
+==================
+Sintaxis:
+	PROC SGPLOT;
+		DENSITY <variable> / <opciones>;
+
+Opciones:
+TYPE = <tipo de distribucion>
+	Especifica el tipo de distribución a usar:
+	- NORMAL (Default)
+	- KERNEL
+TRANSPARENCY = <n>
+	Grado de transparencia para la curva de densidad (0 - 1)
+*/
+
+PROC SGPLOT DATA = helados;
+	DENSITY cajasVendidas / TYPE = kernel;
 RUN;
