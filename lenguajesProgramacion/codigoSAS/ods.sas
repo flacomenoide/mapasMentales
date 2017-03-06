@@ -323,11 +323,42 @@ DATALABEL = <variable>
 GROUP = <variable>
 	Define una variable para agrupar los datos
 NOMISSINGGROUP
-	Especifica que no genereun grupo con valores MISSING
+	Especifica que no genere un grupo con valores MISSING
 TRANSPARENCY = <n>
 	Grado de transparencia (0 - 1)
 */
 
 PROC SGPLOT DATA = helados;
 	SCATTER X = cajasVendidas Y = ubicacion;
+RUN;
+
+ /*
+SERIES (variables contínuas)
+======
+Para poder realizar estos gráficos es necesario que los datos se encuentren previamente ordenados.
+Sintaxis:
+	PROC SGPLOT;
+		SERIES X = <variable horizontal>
+				Y = <variable vertical> / <opciones>;
+
+Opciones:
+CURVELABEL = <'etiqueta'>
+	Agrega una etiqueta a la curva, se puede definir una variable, si no se especifica usa los valore de Y
+DATALABEL = <variable>
+	Etiquetas para cada punto de dato, si no se especifica una variable se usarán los valores de Y
+GROUP = <variable>
+	Define una variable para agrupar los datos
+MARKERS
+	Agrega un marcador a cada punto
+NOMISSINGGROUP
+	Especifica que no genere un grupo con valores MISSING
+TRANSPARENCY = <n>
+	Grado de transparencia (0 - 1)
+*/
+
+PROC SORT DATA = helados;
+	BY cajasVendidas ubicacion;
+
+PROC SGPLOT DATA = helados;
+	SERIES X = cajasVendidas Y = ubicacion;
 RUN;
