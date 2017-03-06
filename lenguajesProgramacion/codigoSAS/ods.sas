@@ -360,5 +360,44 @@ PROC SORT DATA = helados;
 	BY cajasVendidas ubicacion;
 
 PROC SGPLOT DATA = helados;
-	SERIES X = cajasVendidas Y = ubicacion;
+	SERIES X = cajasVendidas Y = ubicacion / MARKERS;
+RUN;
+
+ /*
+CURVAS DE AJUSTE (variables contínuas)
+================
+Existen varios tipos de curvas de ajuste:
+	REG - Líneas de regresión
+	LOESS - Curvas Loess
+	PBSPLINE - SP-lines personalizados
+
+Sintaxis:
+	PROC SGPLOT;
+		<tipo de curva> X = <variable horizontal>
+				Y = <variable vertical> / <opciones>;
+Opciones:
+ALPHA = <n>
+	Nivel de confianza (0 - 1), el default es 0.05 (95% de confianza)
+CLI
+	Agrega límites para valores individuales predichos (REG o PBSPLINE)
+CLM
+	Agrega límites de confianza para valores medio predichos
+CURVELABEL = <'etiqueta'>
+	Agrega una etiqueta a la curva, si no se especifica nada usa los valore de Y
+GROUP = <variable>
+	Define una variable para agrupar los datos
+NOLEGCLI
+	Elimina leyendas para la banda CLI
+NOLEGCLM
+	Elimina leyendas para la banda CLM
+NOLEGFIT
+	Elimina leyendas para la Curva de ajuste
+NOMARKERS
+	Elimina los marcadores de los puntos de datos
+CLMTRANSPARENCY = <n>
+	Grado de transparencia para los límites de confianza (0 - 1)
+*/
+PROC SGPLOT;
+	PBSPLINE X = cajasVendidas
+			Y = ubicacion;
 RUN;
