@@ -401,3 +401,43 @@ PROC SGPLOT;
 	PBSPLINE X = cajasVendidas
 			Y = ubicacion;
 RUN;
+
+ /*
+Personalización de Gráficos
+===========================
+Ejes de referencia
+Sintaxis:
+	PROC SGPLOT;
+		XAXIS <opciones>;
+		YAXIS <opciones>;
+
+Opciones:
+GRID
+	Genera una malla en cada marca del eje
+LABEL = <'texto'>
+	Especifica una etiqueta para el eje
+TYPE = <tipo de eje>
+	Especifica el tipo de eje:
+	- DISCRETE (Default) >> caracteres
+	- LINEAR >> números
+	- TIME >> tipos de datos asociados a tiempo
+	- LOG >> Escala Logarítmica
+VALUES = (lista de valores)
+	Especifica valores para las marcas en los ejes, puede ser una lista específica o un rango
+	Ejemplo: (0 5 10 15 20 25) o (0 TO 25 BY 5)
+
+Líneas de referencia
+Sintaxis:
+	PROC SGPLOT;
+		REFLINE <valores> / <opciones>;
+Los valores pueden ser una lista específica o un rango.
+Ejemplo: (0 5 10 15 20 25) o (0 TO 25 BY 5)
+
+Opciones:
+AXIS = <eje>
+	Especifica el eje que contiene la línea de referencia (X o Y - Default)
+LABEL = (<lista de etiquetas>)
+	Especifica uno o más valores de texto para ser usados como etiquetas de las líneas de referencia
+TRANSPARENCY = <n>
+	Grado de transparencia (0 - 1)
+*/
