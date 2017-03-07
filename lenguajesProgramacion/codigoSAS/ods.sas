@@ -488,3 +488,34 @@ POSITION = <valor>
 	- LEFT
 	- RIGHT
 */
+
+ /*
+Opciones para controlar atributos Gráficos
+FILLATTRS = (<atributo> = <valor>)
+	Especifica la apariencia de un área rellenada, el único atributo es COLOR
+LABELATTRS = (<atributo> = <valor>)
+	Apariencia de las etiquetas de los ejes:
+	- COLOR =
+	- SIZE =
+	- STYLE =
+	- WEIGHT =
+LINEATTRS = (<atributo> = <valor>)
+	Apariencia de líneas:
+	- COLOR =
+	- PATTERN =
+	- THICKNESS =
+MARKERATTRS = (<atributo> = <valor>)
+	Apariencia del marcador:
+	- COLOR =
+	- SIZE =
+	- SYMBOL =
+VALUEATTRS = (<atributo> = <valor>)
+	Apariencia de las marcas de los ejes:
+	- COLOR = (Notación RGB #FF0000)
+	- PATTERN = (SOLID, DASH, SHORTDASH, LONGDASH, DOT, DASHDASHDOT, DASHDOTDOT)
+	- SIZE = (Valores numéricos en CM, IN, MM, PCT, PT o PX - Default)
+	- STYLE = (ITALIC, NORMAL -Default)
+	- SYMBOL = (CIRCLE, CIRCLEFILLED, DIAMOND, DIAMONDFILLED, PLUS, SQUARE, SQUAREFILLED, STAR, STARFILLED, TRIANGLE, TRIANGLEFILLED)
+THICKNESS = <valor>
+WEIGHT = (BOLD, NORMAL)
+*/
