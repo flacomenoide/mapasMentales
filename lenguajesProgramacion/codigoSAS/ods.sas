@@ -440,4 +440,51 @@ LABEL = (<lista de etiquetas>)
 	Especifica uno o más valores de texto para ser usados como etiquetas de las líneas de referencia
 TRANSPARENCY = <n>
 	Grado de transparencia (0 - 1)
+
+Leyendas
+Sintaxis:
+	PROC SGPLOT;
+		KEYLEGEND / <opciones>;
+
+Opciones:
+ACROSS = <n>
+	Cantidad de columnas en la leyenda
+DOWN = <n>
+	Cantidad de de filas en la leyenda
+LOCATION = <valor>
+	Especifica la ubicación de la leyenda:
+	- INSIDE
+	- OUTSIDE (Default)
+NOBORDER
+	Elimina los bordes
+POSITION = <valor>
+	Especifica la posición de la leyendo en el gráfico:
+	- TOP
+	- TOP LEFT
+	- TOP RIGHT
+	- BOTTOM (Default)
+	- BOTTOM LEFT
+	- BOTTOM RIGHT
+	- LEFT
+	- RIGHT
+	Si queremos eliminar la leyenda hay que especificar la sentencia NOAUTOLEGEND.
+	Ejemplo PROG SGPLOT NOAUTOLEGEND;
+
+Insets
+Es el texto en el área de los ejes
+Sintaxis:
+	INSET <lista de textos> / <opciones>
+Opciones:
+BORDER
+	Adiciona un borde
+POSITION = <valor>
+	Posición del INSET:
+	- TOP
+	- TOP LEFT
+	- TOP RIGHT
+	- BOTTOM (Default)
+	- BOTTOM LEFT
+	- BOTTOM RIGHT
+	- LEFT
+	- RIGHT
 */
