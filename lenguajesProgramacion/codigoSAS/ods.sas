@@ -554,3 +554,26 @@ PROC SGPANEL;
 	PBSPLINE X = cajasVendidas
 			Y = ubicacion;
 RUN;
+
+ /*
+ODS GRAPHICS - Propiedades de Imágenes
+============
+Sintaxis:
+	ODS GRAPHICS / <opciones>;
+
+Opciones:
+HEIGHT = <n>
+	Alto de la imagen en CM, IN, MM, PT, PX
+IMAGENAME = <'nombre del archivo'>
+	Nombre del archivo que se generará
+OUTPUTFMT = <tipo de archivo>
+	Formato del archivo de salida: BMP, GIF, JPEG, PDF, PNG, PS, SVG, TIFF y otros
+RESET
+	Resetea las opciones a los valores Default
+WIDTH = <n>
+	Ancho de la imagen en CM, IN, MM, PT, PX
+Valores Default:
+	640 x 480
+	Si no se especifica una medida se mantiene la proporción 4:3
+*/
+ODS GRAPHICS / RESET;
