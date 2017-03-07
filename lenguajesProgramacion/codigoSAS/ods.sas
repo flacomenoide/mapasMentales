@@ -487,9 +487,7 @@ POSITION = <valor>
 	- BOTTOM RIGHT
 	- LEFT
 	- RIGHT
-*/
 
- /*
 Opciones para controlar atributos Gráficos
 FILLATTRS = (<atributo> = <valor>)
 	Especifica la apariencia de un área rellenada, el único atributo es COLOR
@@ -519,3 +517,40 @@ VALUEATTRS = (<atributo> = <valor>)
 THICKNESS = <valor>
 WEIGHT = (BOLD, NORMAL)
 */
+
+ /*
+GRAFICOS CON PANELES
+====================
+PROC SGPANEL
+	Tiene casi los mismos gráficos que SGPLOT, pero estos oueden ser ubicados en diferentes paneles.
+	La palabra clave es: PANELBY
+	Usa COLAXIS o ROWAXIS en lugar de XAXIS e YAXIS
+
+Sintaxis:
+	SGPANEL;
+		PANELBY <lista de variables> / <opciones>;
+		<sentencia plot>;
+
+Opciones:
+COLUMNS = <n>
+	Cantidad de columnas en el panel
+MISSING
+	Incluye MISSING en los paneles
+NOVARNAME
+	Elimina los nombres de las variables de las cabeceras de las celdas
+ROWS = <n>
+	Cantidad de filas en los paneles
+SPACING = <n>
+	Cantidad de pixeles entre filas y columnas
+UNISCALE = <valor>
+	Especifica qué ejes comparten el mismo rango:
+	- COLUMN
+	- ROW
+	- BOTH (Default)
+*/
+
+PROC SGPANEL;
+	PANELBY sabor;
+	PBSPLINE X = cajasVendidas
+			Y = ubicacion;
+RUN;
