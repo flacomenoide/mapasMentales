@@ -510,7 +510,6 @@ ID <lista de variables>
 	El contenido de estas variables se usa como el nombre de las nuevas columnas.
 VAR <lista de variables>
 	Lista las variables cuyo valor se quiere trasponer.
-	
 */
 
 PROC TRANSPOSE
@@ -518,4 +517,48 @@ PROC TRANSPOSE
 	OUT = excel_t;
 	ID col4;
 	VAR col1-col3;
+RUN;
+
+ /*
+PROCs para generación de estadísticos
+=====================================
+PROC UNIVARIATE
+===============
+Genera estadísticas y gráficos que describen la distribución de una variable simple.
+Estadísticas disponibles:
+- MEAN
+- MEDIAN
+- MODE
+- Standard Deviation
+- Sesgo
+- Kurtosis
+
+Sintaxis:
+	PROC UNIVARIATE [opciones];
+		VAR <lista de variables>;
+		[PLOT_REQ <lista de variables> / <opciones>];
+
+Si no se define VAR se calculan las estadísticas para todas las variables continuas.
+Opciones ue se pueden agregar:
+- NORMAL
+	Produce un test de normalidad
+PLOT_REQ permite generar gráficos:
+- CDFPLOT	>> Distribución acumulada
+- HISTOGRAM	>> Histograma
+- PPPLOT	>> Gráfica de probabilidad
+- QQPLOT	>> Gráfico Quantile/Quantile
+
+Si no se define VAR se generarán gráficos para todas las variables.
+Opciones de PLOT_FREQ para sobreponerlas en el gráfico:
+- BETA
+- EXPONENCIAL
+- GAMMA
+- LOGNORMAL
+- NORMAL
+- WEIBULL
+*/
+
+PROC UNIVARIATE DATA = helados NORMAL;
+	VAR ubicacion cajasVendidas;
+	QQPLOT ubicacion cajasVendidas / NORMAL;
 RUN;
