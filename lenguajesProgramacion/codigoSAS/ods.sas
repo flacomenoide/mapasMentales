@@ -577,3 +577,24 @@ Valores Default:
 	Si no se especifica una medida se mantiene la proporción 4:3
 */
 ODS GRAPHICS / RESET;
+
+ /*
+Grabar gráficos
+===============
+Sintaxis:
+	ODS <archivo destino> <opciones>;
+
+El destino puede ser: PDF, RTF, HTML, LISTING
+
+Opciones:
+FILE = <'direcctorio/archivo'>
+	Archivo y su ruta para PDF y RTF
+GPATH = <'directorio'>
+	Ruta de las imágenes para LISTING y HTML
+DPI = <n>
+	Resolución de la imagen para PDF (Default = 200)
+IMAGE_DPI = <n>
+	Resolución de la imagen para HTML, LISTING y RTF (Default = 100)
+STYLE = <nombre del estilo>
+	Template del estilo a usar
+*/
