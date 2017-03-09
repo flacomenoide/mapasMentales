@@ -605,3 +605,72 @@ La sentencia ALPHA permite cambiar el límite de confianza
 
 PROC MEANS DATA = helados SKEWNESS KURTOSIS;
 RUN;
+
+ /*
+PROC TTEST
+==========
+Genera un t-test, que se usa para comparar medias
+Sintaxis:
+	Comparación Simple
+	PROC TTEST [PLOTS = <requerimiento>] [H0 = <n>] [<opciones>];
+		[CLASS <variable>;]
+		[VAR <variable>;]
+		[PAIRED <variable>;]
+
+CLASS
+	Identifica la variable categórica por la cual separar la muestra
+VAR
+	Identifica las variables a analizar
+PAIRED
+	Identifica los pared de variables a analizar
+
+Opciones:
+ALPHA = <n>
+	Límite de confianza (0-1)
+CI = <tipo>
+	Tipo de intervalo de confianza para la desviasión estándar:
+	- EQUAL
+	- UMPU
+	- NONE
+H0 = <n>
+	Hipótesis nula (Default 0)
+NOBYVAR
+	Pone los nombres de las variables en la tabla de salida
+SIDES = <tipo>
+	Existen 2 tipos:
+	- LOWER
+	- UPPERR
+
+Requerimientos disponibles:
+	ALL
+	BOXPLOT
+	HISTOGRAM
+	INTERVALPLOT
+	NONE
+	QQPLOT
+	SUMMARYPLOT
+	PAIRED:
+	- AGREEMENTPLOT
+	- PROFILESPLOT
+*/
+
+* Verifica si la media es significativamente diferente de H0 ;
+PROC TTEST DATA = helados H0=0;
+	VAR cajasVendidas;
+RUN;
+
+* Comparación de 2 muestras independientes separando los datos por clase;
+PROC TTEST DATA = helados;
+	CLASS Sabor;
+	VAR cajasVendidas;
+RUN;
+
+* Comparación pareada ;
+PROC TTEST DATA = helados;
+	PAIRED cajasVendidas * UBICACION;
+RUN;
+
+PROC TTEST DATA = helados PLOTS = BOXPLOT;
+	CLASS Sabor;
+	VAR cajasVendidas;
+RUN;
