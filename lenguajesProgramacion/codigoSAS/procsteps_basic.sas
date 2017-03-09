@@ -558,7 +558,50 @@ Opciones de PLOT_FREQ para sobreponerlas en el gráfico:
 - WEIBULL
 */
 
-PROC UNIVARIATE DATA = helados NORMAL;
+PROC UNIVARIATE DATA = helados NORMAL noprint;
 	VAR ubicacion cajasVendidas;
-	QQPLOT ubicacion cajasVendidas / NORMAL;
+	QQPLOT cajasVendidas / NORMAL;
+RUN;
+
+ /*
+PROC MEANS
+==========
+Permite generar estadísticas específicas de las variables numéricas.
+No genera gráficos.
+Sintaxis:
+	PROC MEANS <estadistica>;
+		VAR <lista de variables>;
+Estadísticas disponibles:
+CLM			>> Límites de confianza de ambos lados
+CSS			>> Suma de cuadrados corregidos
+CV			>> Coeficiente de variación
+KURTOSIS
+LCLM		>> Límite de confianza inferior
+MAX
+MEAN
+MIN
+MODE
+N
+NMISS
+MEDIAN
+Q1 = P25
+Q2 = P50 = MEDIAN
+Q3 = P75
+P1..P99
+RANGE
+SKEWNESS	>> Sesgo
+STDDEV
+STDERR
+SUM
+SUMWGT
+UCLM		>> Límite de confianza superior
+USS			>> Suma de cuadrados de la varianza no corregida
+VAR			>> Varianza
+PROBT		>> Probabilidad para t student
+
+El valor default para los límites de confianza es 0.05 (95%)
+La sentencia ALPHA permite cambiar el límite de confianza
+*/
+
+PROC MEANS DATA = helados SKEWNESS KURTOSIS;
 RUN;
