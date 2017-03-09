@@ -305,11 +305,11 @@ RUN;
  /*
 PROC FREQ
 =========
-Permite generar tablas de frecuencia a partir de las variables de un dataset
+Permite generar tablas de frecuencia a partir de las variables categóricos de un dataset
 
 Sintaxis:
 	PROC FREQ;
-		TABLES <lista de variables a combinar> / [OPCIONES]
+		TABLES <lista de variables a combinar> / [opciones]
 Ejemplo:
 	TABLES SEX * YEARSofEDUCATION
 
@@ -328,6 +328,39 @@ OPCIONES:
 	No imprime los porcentajes en las filas
 - OUT = <data set>
 	Genera unata Set con los datos de las tablas de frecuencia
+- AGREE
+	Test y medidas de clasificación que incluye:
+	- TEST MEMEMAR
+	- TEST BOWKER
+	- TEST CHOCHRAN Q
+	- ESTADISTICAS KAPPA
+- CHISQ
+	Test de independenchia Chi^2 y medidas de asociasión
+- CL
+	Límites de confianza para las medidas de asociación
+- CHM
+	Estadísticos CHOCHRAM - MANTEL - HAENSZEL, generalmente para tablas estratificadas de 2 vías.
+- EXACT
+	Test de exactitud de FISHER para tablas mayores a 2x2
+- MEASURES
+	Medidas de asociación:
+	- Coeficientes de correlación Pearson y Spearman, gamma, kendall tan-b, stuart taes-c, sommers D, lamda, odds ratio, risk ratios e intervalos de confianza
+- RELRISK
+	Medidas de riesgo relativo para tablas superioes a 2x2
+
+Gráficos:
+PROC FREQ permite realizar gráficos agregando la sentencia PLOTS = <plot>
+
+Los PLOTs disponibles son:
+- AGREEPLOT (2 way)
+- CUMFREQPLOT (1 way)
+- DEVIATIONPLOT
+- FREQPLOT
+- KAPPAPLOT
+- ODDSRATIOPLOT
+- RELREISKPLOT
+- RISKDIFFPLOT
+- WTKAPPAPLOT
 */
 
 PROC FREQ data = excel_format;
