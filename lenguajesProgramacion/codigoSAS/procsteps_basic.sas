@@ -752,3 +752,24 @@ Plots:
 PROC REG DATA = helados;
 	MODEL cajasVendidas = ubicacion;
 RUN;
+
+ /*
+PROC ANOVA
+==========
+Realiza análisis de Varianza de una sola vía para mustras balanceadas
+
+Sintaxis:
+	PROC ANOVA;
+		CLASS <lista de variables>;
+		MODEL <dependiente> = <efectos>;
+
+CLASS
+	Indica las variables de clasificación
+MODEL
+	Define la variable dependiente relacionada con las variables de clasificación
+*/
+
+PROC ANOVA DATA = helados;
+	CLASS sabor;
+	MODEL ubicacion = sabor;
+RUN;
