@@ -725,3 +725,30 @@ PLOTS disponibles:
 PROC CORR DATA = helados PLOTS = (matrix);
 	VAR ubicacion cajasVendidas;
 RUN;
+
+ /*
+PROC REG
+========
+Permite realizar regresiones simples
+
+Sintaxis:
+	PROC REG [PLOTS (<opciones>) = (plots)];
+		MODEL <variable dependiente> / <variables independientes>;
+
+Plots:
+- FITPLOT
+- RESIDUALS
+- DIAGNOSTICS
+- COOKSD
+- OBSERVEDBYPREDICTED
+- QQPLOT
+- RESIDUALBYPREDICTED
+- RESIDUALHISTOGRAM
+- RFPLOT
+- RSTUDENTBYLEVERAGE
+- RSTUDENTBYPREDICTED
+*/
+
+PROC REG DATA = helados;
+	MODEL cajasVendidas = ubicacion;
+RUN;
