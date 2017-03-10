@@ -707,3 +707,21 @@ PROC TTEST DATA = helados PLOTS = BOXPLOT;
 	CLASS Sabor;
 	VAR cajasVendidas;
 RUN;
+
+ /*
+PROC CORR
+=========
+Permite calcular correlaciones entre variables, los valores van entre -1 y 1.
+Se pueden agregar gráficos que acompañan los resultados
+Sintaxis:
+	PROC CORR [PLOTS = (plot)];
+		[VAR <lista de variables>];
+		[WITH <lista de variables>];
+
+PLOTS disponibles:
+- SCATTER
+- MATRIX
+*/
+PROC CORR DATA = helados PLOTS = (matrix);
+	VAR ubicacion cajasVendidas;
+RUN;
