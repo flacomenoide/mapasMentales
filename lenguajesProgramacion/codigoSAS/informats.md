@@ -16,7 +16,7 @@ JULIAN*w.* | Lee fechas del calendario Juliano en la forma *yyddd o yyyyddd* | 5
 MMDDYY*w.* | Lee fechas en la forma *mmddyy o mmddyyyy* | 6 | 01-01-61 01/01/61 | 366 366 | INPUT variable MMDDYY8.
 STIMER*w.* | Lee tiempo en la forma *hh:mm:ss.ss o mm:ss.ss o ss.ss* | 10 | 10:30 10:30:15 | 630 37815 | INPUT variable STIMER8.
 TIME*w.* | Lee tiempo en la forma *hh:mm:ss.ss o hh:mm* | 8 | 10:30 10:30:15 | 37800 37815 | INPUT variable TIME8.
-**Números**
+**Números** |
 COMMA*w.d* | Elimina comas y el símbolo $, convierte el paréntesis izquierdo en signo - | 1 | 1,000,001 (1,234) | 1000001 -1234 | INPUT variable COMMA10.
 COMMAX*w.d* | Similar a COMMAw.d pero invierte los roles de puntos y comas | 1 | 1.000.001 (1.234,25) | 1000001 -1234.25 | INPUT variable COMMAX10.
 PERCENT*w.* | Convierte porcentajes a números | 6 | 5% (20%) | 0.05 -0.2 | INPUT variable PERCENT5.
