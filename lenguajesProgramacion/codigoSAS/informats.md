@@ -9,3 +9,5 @@ $UPCASEw. | Convierte a todos los caracteres a Mayúsculas | 8 | un gato | UN GA
 $w. | Lee datos caracteres eliminando caracteres en blanco del inicio ni del final | none |   un gato | un gato | INPUT variable *$10.*
 **Date, Time y Datetime** |
 ANYDTDTEw. | Lee fechas en varios formatos | 9 | 1jan1961 01/01/61 | 366 366 | INPUT variable ANYDTDTE10.
+DATE*w.* | Lee fechas en la forma *ddmmmyy o ddmmmyyyy* | 7 | 1jan1961 1 jan 61 | 366 366 | INPUT variable DATE10.
+DATETIME*w.* | Lee fechas en la forma *ddmmmyy hh:mm:ss:ss* | 18 | 1jan1960 10:30:15 o 1jan61,10:30:15 | 37815 31660215 | INPUT variable DATETIME18.
