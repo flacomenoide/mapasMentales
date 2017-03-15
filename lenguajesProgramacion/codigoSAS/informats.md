@@ -3,7 +3,7 @@ Informats disponibles en SAS
 
 **Informat** | **Definición** | **Longhitud Default** | **Datos de Entrada** | **Datos de Salida** | **Ejemplo de Input**
 --- | --- | --- | --- | --- | ---
-**Caracteres** |
+{{small|**Caracteres** |
 $CHAR*w.* | Lee datos caracteres tal como se persentan, NO elimina caracteres en blanco del inicio ni del final | 8 o la longitud de la variable |   un gato  |   un gato | INPUT variable *$CHAR10.*
 $UPCASE*w.* | Convierte a todos los caracteres a Mayúsculas | 8 | un gato | UN GATO | INPUT variable *$UPCASE10.*
 $*w.* | Lee datos caracteres eliminando caracteres en blanco del inicio ni del final | none |   un gato | un gato | INPUT variable *$10.*
@@ -20,4 +20,4 @@ TIME*w.* | Lee tiempo en la forma *hh:mm:ss.ss o hh:mm* | 8 | 10:30 10:30:15 | 3
 COMMA*w.d* | Elimina comas y el símbolo $, convierte el paréntesis izquierdo en signo - | 1 | 1,000,001 (1,234) | 1000001 -1234 | INPUT variable COMMA10.
 COMMAX*w.d* | Similar a COMMAw.d pero invierte los roles de puntos y comas | 1 | 1.000.001 (1.234,25) | 1000001 -1234.25 | INPUT variable COMMAX10.
 PERCENT*w.* | Convierte porcentajes a números | 6 | 5% (20%) | 0.05 -0.2 | INPUT variable PERCENT5.
-*w.d* | Lee datos numéricos estándar | none | 1234 -12.3 | 123.4 -12.3 | INPUT variable 5.1
+*w.d* | Lee datos numéricos estándar | none | 1234 -12.3 | 123.4 -12.3 | INPUT variable 5.1}}
