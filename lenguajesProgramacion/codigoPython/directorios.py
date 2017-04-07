@@ -26,6 +26,6 @@ def imprime_archivos_con_patron(directorio):
 
 import os, re
 
-aFolder = "/home/mike/mapasMentales"
+aFolder = "/un/directorio"
 imprime_archivos(aFolder)
 imprime_archivos_con_patron(aFolder)
