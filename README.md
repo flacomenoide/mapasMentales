@@ -4,17 +4,17 @@ mapasMentales en Español
 Mapas mentales de herramientas relacionadas a Data Science y su entorno
 -----------------------------------------------------------------------
 Este repositorio contiene varios directorios:
-- dataScience
-  - dataScience
-  - analytics
-  - bigData
-- fid (formatos de intercambio de datos)
-  - json
-- lenguajesProgramacion
+- DataScience
+  - DataScience
+  - Analytics
+  - BigData
+- FID (Formatos de Intercambio de Datos)
+  - Json
+- Lenguajes de Programacion
   - desarrolloWeb
-  - python
-  - r
-  - pl/sql
+  - Python
+  - R
+  - PL/SQL
 - NoSQL
   - NoSQL
   - HBase
@@ -22,6 +22,7 @@ Este repositorio contiene varios directorios:
   - git
   - linux
   - spark
+- Blockchain
 
 Para poder ver/usar/editar los mapas mentales es necesario disponer de vym en tu sistema, el cual puede ser descargado de este [link](http://sourceforge.net/projects/vym/).
 
